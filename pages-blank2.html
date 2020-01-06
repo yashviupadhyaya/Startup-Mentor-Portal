@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="stylesheet" href="textfield.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+
+    <title>Forum</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <script src="sinch.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <link rel="stylesheet" href="style/style.css"/>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+        authDomain: "endgame-ad6a9.firebaseapp.com",
+        databaseURL: "https://endgame-ad6a9.firebaseio.com",
+        projectId: "endgame-ad6a9",
+        storageBucket: "endgame-ad6a9.appspot.com",
+        messagingSenderId: "570139431068"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.css'>
+
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<style type="text/css">
+/*  body {background:url(http://i.hizliresim.com/68k46P.png)center center fixed no-repeat; background-size:cover; margin:0; padding:0;}
+*/
+.m-red {background:#1e88e5; color:#fff; text-decoration:none;}
+
+.m-nav {width:100%; height:60px; display:inline-block; text-align:right;}
+
+.m-nav input[type="text"] {float:right; margin-right: 20px; background:rgba(255,255,255,0.3); border:none; padding:8px; outline:none; color:#fff; margin-top:10px;  font-family:"Roboto",Arial sans-serif; height:40px; display:inline-block; transition:0.5s ease all; width:20%;  border-radius: 5px;}
+
+.m-nav input[type="text"]:hover {background:rgba(255,255,255,0.5); transition:0.5s ease all;}
+
+.m-nav input[type="text"]:focus {background:#fff; color:#333; transition:0.5s ease all;}
+
+.m-nav input::-webkit-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input:-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-o-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav li {list-style:none; float:left; display:inline-block;}
+
+.m-nav li a {text-decoration:none; padding:6px 9px; transition:0.70s ease all; margin-top:7px; margin-left:7px; display:inline-block; cursor:pointer;}
+
+.m-nav li a:hover {background:rgba(255,255,255,0.3); transition:0.70s ease all;}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+
+
+<style type="text/css">
+
+/* main header */
+
+#main, nav, section, footer{
+  margin: 1%;
+}
+
+#main{
+  width: 100%;
+  height: auto;
+  margin: 0 auto 2% auto;
+  background-image: url(imgs/firewatch-pixelated.png);
+  background-size: cover;
+  background-position: 50% 20%;
+  padding-top: 50vh;
+  padding-bottom: 50vh;
+}
+
+#main h1{
+  text-align: center;
+  font-size: 3em;
+}
+/* end of main header */
+
+/* navigation section */
+
+nav{
+  /*position: fixed;*/
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 30px 30px;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+  height: 8%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* an underline appears at the bottom on hover of each link */
+nav ul li a:hover, nav ul li a:active{
+  border-bottom: 5px solid #1e88e5;
+  padding-bottom: 16px;
+  /*border-radius: 20px 20px 0px 0px; */
+}
+/* end of navigation section*/
+.tag-button{
+  display: inline-block;
+  /* color: #1976D2; */
+  color:#000000;
+  /* background-color: #ff3333; */
+
+  border: 2px solid #ff3333;
+  border-radius: 38px;
+
+  min-width: 4em;
+
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left:0.25em;
+  margin-right:0.25em;
+  margin-top:0.25em;
+  margin-bottom: 0.25em;
+
+  transition: color 0.25s ease-in,
+    background-color 0.25s ease-in,
+    -webkit-transform 0.3s ease-out;
+
+  transition: color 0.25s ease-in,
+    background-color 0.25s ease-in,
+    transform 0.3s ease-out;
+
+  transition: color 0.25s ease-in,
+    background-color 0.25s ease-in,
+    transform 0.3s ease-out,
+    -webkit-transform 0.3s ease-out;
+}
+.tag-button:hover{
+  cursor: pointer;
+
+  color: white;
+  /* background-color: #1976D2; */
+}
+.tag-button:active{
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+
+</style>
+
+
+
+
+<body class="fix-header fix-sidebar card-no-border">
+
+    <script>
+
+    var url=new URL(window.location);
+    var type=url.searchParams.get("type");
+    //alert(type);
+    setTimeout(function(){
+
+      if(type=="startup"){
+          document.getElementById("home").href="final_dashboard.html?type=startup";
+          document.getElementById("forum").href="pages-blank2.html?type=startup";
+          document.getElementById("social").href="SocialNetwork.html?type=startup";
+          document.getElementById("account").href="startupview.html?type=startup";
+      }
+      else if(type=="mentor"){
+          document.getElementById("home").href="Mentor dash.html?type=mentor";
+          document.getElementById("forum").href="pages-blank2.html?type=mentor";
+          document.getElementById("social").href="SocialNetwork.html?type=mentor";
+          document.getElementById("account").href="mentorview.html?type=mentor";
+
+      }
+      else if(type=="admin"){
+          document.getElementById("home").href="Final_Admin.html?type=admin";
+          document.getElementById("forum").href="pages-blank2.html?type=admin";
+          document.getElementById("social").href="SocialNetwork.html?type=admin";
+          document.getElementById("account").href="adminview.html?type=admin";
+
+      }
+      else{
+        document.getElementById("home").href="final_dashboard.html?type=startup";
+        document.getElementById("forum").href="pages-blank2.html?type=startup";
+        document.getElementById("social").href="SocialNetwork.html?type=startup";
+        document.getElementById("account").href="startupview.html?type=startup";
+
+      }
+    },1000);
+
+
+
+    $(function() {
+
+
+	$('.searchBtn').click(function() {
+		$('.searchContainer').toggleClass('show');
+		$('.meContainer, .meOverlay').removeClass('show');
+		$('.searchOverlay').toggleClass('show');
+	});
+	$('.you').click(function() {
+		$('.meContainer').toggleClass('show');
+		$('.searchContainer, .searchOverlay').removeClass('show');
+		$('.meOverlay').toggleClass('show');
+	});
+	$('.meOverlay, .searchOverlay').click(function(){
+		$('.searchContainer, .meContainer').removeClass('show');
+		$('.meOverlay, .searchOverlay').removeClass('show');
+	});
+
+	$('.newTweet, .closeNewTweet').click(function() {
+		$('.newTweetContainer').toggleClass('show');
+	});
+	$('.newTweetDarken').click(function() {
+		$('.newTweetContainer').removeClass('show');
+	});
+
+	$('.textarea textarea').focusin(function() {
+		$(this).addClass('focus');
+		$('.addTweet').addClass('change');
+	});
+	$('.closeTweet').click(function() {
+		$('.textarea textarea').removeClass('focus');
+		$('.addTweet').removeClass('change');
+	});
+
+
+
+
+
+
+	// NIGHT MODE
+	$('.NightMode').click(function() {
+		$('nav, body, .meContainer, .searchContainer, .timeline, .textarea, .loadMore, .module, .newTweetContainer').toggleClass('night');
+	});
+
+
+
+});
+
+    </script>
+    <script>
+            function commentsToPost(reference) {
+              // alert("called");
+              console.log($(reference).attr("id"));
+
+              post_id=$(reference).attr("id");
+              string="comments_"+post_id;
+              console.log(string);
+              var x = document.getElementById(string);
+              if (x.style.display === "none" || x.style.display==="hidden") {
+                console.log("Here");
+                x.style.display = "block";
+                //retrieve_comments
+              } else {
+                x.style.display = "none";
+              }
+            }
+    </script>
+    <script>
+
+
+            // setTimeout(function(){
+            //   console.log(document.getElementById("description"));
+            // },5000);
+            var current_date=new Date();
+            console.log(current_date);
+            var user="Raj Kothari";
+            var name;
+            var date;
+
+             //fetched from Sign In
+            var post_count;
+            var tags_list=[];
+            var time;
+            var description;
+            var incr = (function () {
+            var i = 1;
+
+            return function () {
+            return i++;
+            }
+            })();
+
+            function Signout(){
+              console.log("here");
+          firebase.auth().signOut();
+          
+          window.location.href="login_Startup.html";
+        }
+
+            function push_post(post_count,post_id){
+
+
+                  var title=document.getElementById("title").value;
+                  var d = text;
+                  console.log(title,d);
+                  var current_date=new Date();
+                  var legal = ["legal fees","licensing","patent","Court","incorporation","Partnership","LLC","C Corporation","S Corporation",
+                             "Taxes","taxes","Accounts","VAT","Agreements","agreements","Law","law","Privacy","Policy","Intellectual Property",
+                             "Allegations","allegations","theft","steal","stole","Copyright","Trademark","Confidentiality"];
+                  var technology = ["Development","Designing","Testing","Debugging"];
+
+                  var mentor_domains = [legal,technology];
+                  var mentor_domain_keys = ["legal","technology"];
+
+                  for(var x=0;x<mentor_domains.length;x++){
+                        for(var y=0;y<mentor_domains[x].length;y++){
+                            if(d.includes(mentor_domains[x][y])){
+                                console.log(mentor_domain_keys[x]);
+                                tags_list.push(mentor_domain_keys[x]);
+                            }
+                        }
+                  }
+                  var tags="";
+                  for(i=0;i<tags_list.length;i++){
+                    tags+=tags_list[i]+",";
+                  }
+                  var result=tags.slice(0,tags.length-1);
+                  console.log(result);
+                  console.log(current_date);
+                  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                  root.child("Queries").child(post_id).set({
+                      "UID":user_id,
+                      "Name":name,
+                      "Title":title,
+                      "Description":d,
+                      // "Type":document.getElementById("type").value,
+                      "Date":date,
+                      "Time":time,
+                      "Tags":result,
+                      "Upvote":0,
+                      "Count":post_count+1,
+                      "Comments":{"Comment_Count":0}
+                  });
+                  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                  root.child("Queries").child("Query_Count").set(post_count+1);
+
+            }
+
+
+            function randomString(length, chars) {
+                var mask = '';
+                if (chars.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
+                if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (chars.indexOf('#') > -1) mask += '0123456789';
+                if (chars.indexOf('!') > -1) mask += '~`!@#$%^&*()_+-={}[]:";\'<>?,./|\\';
+                var result = '';
+                for (var i = length; i > 0; --i) result += mask[Math.floor(Math.random() * mask.length)];
+                return result;
+            }
+
+                function mainPost() {
+                    //var x = document.getElementById("post_ta").value;
+                //if(x!=""){
+                    var div = document.createElement('div');
+                    div.className = 'tweet';
+                    console.log(user_name);
+                    name=user_name;
+
+                    title=document.getElementById("title").value;
+                    date=current_date.getDate()+"/"+(current_date.getMonth()+1)+"/"+current_date.getFullYear();
+                    time=current_date.getHours() + ":"+
+                          + current_date.getMinutes() + ":"
+                          + current_date.getSeconds();
+                    tags="legal"; //load tags
+                    post_id=randomString(10,"Aa");
+                    comment_count=0;
+                    upvote=0;
+                    upvote_id=upvote+"_"+post_id;
+                    comment_id=comment_count+"_"+post_id;
+                    upvote_value_id="number_upvote_"+post_id;
+                    comment_value_id="number_comment_"+post_id;
+                    string="comments_"+post_id;
+                    setTimeout(function(){
+                      console.log("Timeout Starts",name);
+                      if(name=="undefined"){
+                        name="Raj Kothari";
+                      }
+                      s="Posted on "+ date + " " + time;
+                      text=document.getElementById("description").value;
+
+                      first='<div class="tweet" style="border:1px solid #D3D3D3"><a class="avatar" href=""><img src="https://yt3.ggpht.com/-uJh4oSQAwak/AAAAAAAAAAI/AAAAAAAAAAA/AMGKfKvDP3w/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/></a>\
+                      <div class="infoContainer">\
+                          <div class="nameContainer"><a href="#"><span class="name" onclick="view_profile();">'+name+'</span><br><span class="atMe">@RajKothari</span><span class="time">'+s+'</span></a><a href="#" class="tag-button" style="float:right;margin-left:200px;">'+tags+'</a></div>\
+                          <div class="message">\
+                              <b><b><u>'+title+'</u></b></b>\
+                              <p>'+text+'</p>\
+                              \
+                          </div>\
+                          <div class="btns">\
+                          <button><i class="material-icons" id='+upvote_id+' onclick="upvote_fun(this);">thumb_up</i><span id='+upvote_value_id+' class="number">0</span></button>\
+                              <button><span class="fas fa-comment" id='+post_id+' onclick="commentsToPost(this)"></span><span class="number" id='+comment_value_id+'>0</span></button>\
+                          </div></div>\
+                          <div id='+string+' class="comment-section-container" style="display:none">'
+                      comment_description="comment_description_"+post_id;
+                      row_id="row_"+post_id;
+                      second=              '<div class="row" id='+row_id+'>\
+                                                <div class="col-12">\
+                                                    <div class="card">\
+                                                        <div class="card-block"></div>\
+                                                                <textarea id='+comment_description+' style="height: 100%; width: 100%; padding: 4px; margin: 5px;" rows="3" placeholder="Post a comment, share a link, or upload a photo..."></textarea>\
+                                                                <button id='+comment_id+' class="btn btn-success" onclick="postComment(this)">Post</button>\
+                                                       </div>\
+                                                    </div>\
+                                                </div>\
+                                        </div>\
+                        </div>\
+                      </div>'
+                      div.innerHTML =first+second;
+                    document.getElementById('timeline_tweets').prepend(div);
+                    upload_post(post_id);
+
+                  },4000);
+                }
+
+                function upload_post(post_id){
+
+
+                  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                  post_count_ref=root.child("Queries").child("Query_Count");
+                  post_count_ref.once("value", function(snapshot) {
+
+
+                  post_count=snapshot.val();
+                  console.log(post_count);
+                    //categorize_posts();
+                  push_post(post_count,post_id);
+                  }, function (error) {
+
+                    alert("Kuch toh gadbad hai Daya");
+
+                   });
+
+            }
+
+
+                //}
+            </script>
+            <script>
+
+                    function postComment(reference) {
+                        var div = document.createElement('div');
+                        div.className = 'tweet';
+
+                        count=$(reference).attr("id").split("_")[0];
+                        id=$(reference).attr("id").slice($(reference).attr("id").indexOf("_")+1,$(reference).attr("id").length);
+
+                        new_id="comments_"+id;
+
+                    //var i = incr();
+                    //
+                    // <div class="btns">\
+                    //     <button><span class="fas fa-comment"></span><span class="number">45</span></button>\
+                    //     <button><span class="fas fa-retweet"></span><span class="number">12.3K</span></button>\
+                    //     <button><span class="far fa-heart"></span><span class="number">23.9K</span></button>\
+                    //     <button><span class="far fa-envelope"></span><span class="number"></span></button>\
+                    // </div>\
+                        div.innerHTML =
+                        '<a class="avatar" href=""><img src="https://yt3.ggpht.com/-uJh4oSQAwak/AAAAAAAAAAI/AAAAAAAAAAA/AMGKfKvDP3w/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/></a>\
+                        <div class="infoContainer">\
+                            <div class="nameContainer"><a href="#"><span class="name">'+user_name+'</span><span class="atMe">@BobRoss</span><span class="time">11m</span></a></div>\
+                            <div class="message">\
+                                <p>'+document.getElementById('comment_description_'+id).value+'</p>\
+                            </div>\
+                        </div>';
+                        //document.getElementById("ta_"+i).value="";
+                        //toggle_comment_box(id);
+
+                        row_id="row_"+post_id;
+                        node=document.getElementById(row_id);
+                        node.style.display="none";
+                        console.log(node);
+                        //node.style.display="none";
+                        console.log(node);
+                        //node.removeChild(node.lastChild);
+
+                        console.log(node);
+                        document.getElementById(new_id).appendChild(div);
+                        div_to_append='<div class="row" id='+row_id+'>\
+                                                  <div class="col-12">\
+                                                      <div class="card">\
+                                                          <div class="card-block"></div>\
+                                                                  <textarea id='+comment_description+' style="height: 100%; width: 100%; padding: 4px; margin: 5px;" rows="3" placeholder="Post a comment, share a link, or upload a photo..."></textarea>\
+                                                                  <button id='+comment_id+' class="btn btn-success" onclick="postComment(this)">Post</button>\
+                                                         </div>\
+                                                      </div>\
+                                                  </div>\
+                                          </div>';
+                        //document.getElementById(new_id).appendChild(div_to_append);
+                        console.log(id);
+                        comment_value_id="number_comment_"+id;
+                        document.getElementById(comment_value_id).innerHTML=parseInt(count)+1;
+
+                        add_comment(id,document.getElementById('comment_description_'+id).value);
+                    }
+                </script>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+<!--     <div id="main-wrapper">
+ -->
+             <center>
+
+
+    <main>
+
+    <div class="m-nav m-red" style="width: 100% margin-top:0px;">
+<div class="dropdown" style="float:left; margin-left: 10px; margin-top: 15px">
+  <button class="dropbtn" style="border:none; color:#fff; background-color: #1e88e5;">
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fa fa-user" ></i>
+  Profile </a></button>
+<div class="dropdown-content">
+                                <a class="dropdown-item" href="#" id="account">My account</a>
+                                <a class="dropdown-item" href="#" onclick="Signout();">Log out</a>
+                            </div>
+            </div>
+
+ <div class="notification"></div>
+      <input type="text" placeholder="Search Box" >
+<!--                       <div class="container">
+ -->
+          <!-- </div> -->
+</div>
+
+<!--       <li><a><i style="font-size:27px;" class="material-icons">face</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">public</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">person</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">home</i></a></li> -->
+    <!-- </div> -->
+        <!-- navbar -->
+        <nav class="navbar">
+          <ul>
+            <li><a href="#" id="home">Home</a></li>
+            <li><a href="#" id="forum">Forum</a></li>
+            <li><a href="#" id="social">Social Network</a></li>
+
+          </ul>
+
+
+
+
+
+
+        </nav>
+        <!-- navbar -->
+
+
+    </main>
+    </center>
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid" style="margin-top: 100px;">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                <!--#################@@@@@@@@@@@@@@@@@@@@@@@####################-->
+                <!--##################@@@@@@@@@@@@@@@@@@@@@@@###################-->
+
+
+                    <div class="newTweetContainer centre">
+                        <div class="newTweetDarken"></div>
+                        <div class="newTweetBox">
+                            <div class="head">
+                                <h2>Compose new Tweet</h2>
+                                <span class="fas fa-times closeNewTweet"></span>
+                            </div>
+                            <div class="body">
+                                <textarea id="description1" placeholder="What's happening?"></textarea>
+                            </div>
+                            <div class="footer">
+                                <div class="add"><a class="centre" href="#" data-balloon="Add Photos or Video" data-balloon-pos="up"><span class="far fa-image"></span></a><a class="centre" href="#" data-balloon="Add a GIF" data-balloon-pos="up"><span class="fas fa-film"></span></a><a class="centre" href="#" data-balloon="Add Poll" data-balloon-pos="up"><span class="far fa-chart-bar"></span></a></div>
+                                <div class="submit">
+                                    <button><span class="fas fa-comment-alt"></span><span class="text">Tweet</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="addTweet" style="margin-top:10px;height:300px;margin-left:400px;width:50%;">
+
+                        <div class="avatar"><img src="https://pbs.twimg.com/profile_images/1044222938474397696/TtNO9cun_400x400.jpg"/></div>
+                        <!-- <div><input type="text" id="title" placeholder="Enter Title"><br></div> -->
+                        <!-- <div class="textarea"> -->
+                            <!-- <input type="text" id="title" placeholder="Enter Title"><br>
+                            <textarea id="description" placeholder="What's happening?"></textarea> -->
+
+                            <div class="textarea" style="">
+                            <label class="material-textfield">
+                              <input id="title" type="text" onchange="this.dataset.empty = !this.value;">
+                              <span data-label="Post Title" ></span>
+                            </label>
+
+                            <textarea style="height:100px" id=description placeholder="What's happening?"></textarea>
+
+                            <div class="btns">
+                                <div class="add"><a class="centre" href="#" data-balloon="Add Photos or Video" data-balloon-pos="up"><span class="far fa-image"></span></a><a class="centre" href="#" data-balloon="Add a GIF" data-balloon-pos="up"><span class="fas fa-film"></span></a><a class="centre" href="#" data-balloon="Add Poll" data-balloon-pos="up"><span class="far fa-chart-bar"></span></a></div>
+                                <div class="submit">
+                                    <!-- <button class="closeTweet"><span class="fas fa-times"></span><span class="text">Close Tweet</span></button> -->
+                                    <!-- <span class="fas fa-comment-alt"></span> -->
+                                    <!-- <span class="text">Post</span> -->
+                                    <button onclick="mainPost()">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="timeline_tweets" class="timeline" style="margin-left:400px;width:50%;">
+                    <!-- <div class="tweet">
+                        <a class="avatar" href=""><img src="https://yt3.ggpht.com/-uJh4oSQAwak/AAAAAAAAAAI/AAAAAAAAAAA/AMGKfKvDP3w/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/></a>
+                        <div class="infoContainer">
+                            <div class="nameContainer"><a href="#"><span class="name">Bob Ross</span><span class="atMe">@BobRoss</span><span class="time">11m</span></a></div>
+                            <div class="message">
+                                <p>Just posting some of my work.</p>
+                                <img src="https://images.fineartamerica.com/images-medium-large-5/autumns-glow-c-steele.jpg"/>
+                            </div>
+                            <div class="btns">
+                                <button onclick="commentsToPost()"><span class="fas fa-comment"></span><span class="number">45</span></button>
+                                <button><span class="fas fa-retweet"></span><span class="number">12.3K</span></button>
+                                <button><span class="far fa-heart"></span><span class="number">23.9K</span></button>
+                                <button><span class="far fa-envelope"></span><span class="number"></span></button>
+                            </div>
+                            <div id="commentss" class="comment-section-container">
+                                            <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="card">
+                                                            <div class="card-block"></div>
+                                                                    <textarea id="ta" style="height: 100%; width: 100%; padding: 4px; margin: 5px;" rows="3" placeholder="Post a comment, share a link, or upload a photo..."></textarea>
+                                                                    <button  class="btn btn-success" onclick="postComment()">Post</button>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                            </div>
+                        </div>
+
+                    <div class="tweet">
+                        <a class="avatar" href=""><img src="https://pbs.twimg.com/profile_images/1044222938474397696/TtNO9cun_400x400.jpg"/></a>
+                        <div class="infoContainer">
+                            <div class="nameContainer"><a href="#"><span class="name">Ian | Gibbu</span><span class="atMe">@Gibbu_</span><span class="time">23m</span></a></div>
+                            <div class="message">
+                                <p>This is my second attempt on a redesign for twitter</p>
+                                <p>Night mode button even works now! :D</p>
+                                <p>You can also press the "Search" and "You" buttons to open a overlay.</p>
+                                <p>I've also just added more responsive rules. So it's looks "usable".</p>
+                            </div>
+                            <div class="btns">
+                                <button><span class="fas fa-comment"></span><span class="number">2</span></button>
+                                <button><span class="fas fa-retweet"></span><span class="number">1</span></button>
+                                <button><span class="far fa-heart"></span><span class="number">5</span></button>
+                                <button><span class="far fa-envelope"></span><span class="number"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweet">
+                        <a class="avatar" href=""><img src="https://www.thesun.co.uk/wp-content/uploads/2016/04/2129070.main_image.jpg?w=620&amp;strip=all"/></a>
+                        <div class="infoContainer">
+                            <div class="nameContainer"><a href="#"><span class="name">Albus Dumbledore</span><span class="atMe">@albusdumb</span><span class="time">23m</span></a></div>
+                            <div class="message">
+                                <p>Very impressive work by this young fellow.</p>
+                                <iframe src="https://www.youtube.com/embed/MvjQTA81MhY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen=""></iframe>
+                            </div>
+                            <div class="btns">
+                                <button><span class="fas fa-comment"></span><span class="number">12</span></button>
+                                <button><span class="fas fa-retweet"></span><span class="number">45</span></button>
+                                <button><span class="far fa-heart"></span><span class="number">73</span></button>
+                                <button><span class="far fa-envelope"></span><span class="number"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweet">
+                        <a class="avatar" href=""><img src="https://static0.therichestimages.com/wp-content/uploads/Will-Smith.jpeg"/></a>
+                        <div class="infoContainer">
+                            <div class="nameContainer"><a href="#"><span class="name">Will Smith</span><span class="atMe">@Gibbu_</span><span class="time">23m</span></a></div>
+                            <div class="message">
+                                <p>Still one of my favourite movies.</p>
+                                <iframe src="https://www.youtube.com/embed/aoyV49FfjOU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen=""></iframe>
+                            </div>
+                            <div class="btns">
+                                <button><span class="fas fa-comment"></span><span class="number">12</span></button>
+                                <button><span class="fas fa-retweet"></span><span class="number">32</span></button>
+                                <button><span class="far fa-heart"></span><span class="number">67</span></button>
+                                <button><span class="far fa-envelope"></span></button><span class="number"></span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="loadMore centre"><span class="fab fa-twitter"></span>
+                        <button>Loading...</button>
+                    </div>
+
+                    </div>
+                <!--###################@@@@@@@@@@@@@@@@@@@@@@@@##################-->
+
+                    <!-- comments -->
+
+                <!-- </div> -->
+                <!--/comments-->
+
+
+                <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+</body>
+
+</html>

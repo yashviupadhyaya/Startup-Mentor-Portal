@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SignUp</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css'>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+	
+	   
+
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="Signup.css"/>
+	<script src="sinch.min.js"></script>
+	<script src="Signup.js"></script>
+
+
+			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+			<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+
+	        <!--Firebase CDN's-->
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-storage.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+
+			<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+			<!--End of firebase-->
+
+			<script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+			<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+				authDomain: "endgame-ad6a9.firebaseapp.com",
+				databaseURL: "https://endgame-ad6a9.firebaseio.com",
+				projectId: "endgame-ad6a9",
+				storageBucket: "endgame-ad6a9.appspot.com",
+				messagingSenderId: "570139431068"
+			};
+			firebase.initializeApp(config);
+			try{
+			extract_fields();
+			}
+			catch(e){
+
+			}
+			$(document).ready(function(){
+				load_domains();
+			});
+			//load_domains();
+
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			
+			function SignUp(){
+
+
+			$('.btn').on('click', function() {
+			var $this = $(this);
+			$this.button('loading');
+			console.log("here at loading");
+			// $this.button('reset');
+			});
+
+
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			var email = document.getElementById("email").value;
+			var password = document.getElementById("password").value;
+			var dipp = document.getElementById("Dipp").value;
+			var dipp = dipp+"@gmail.com";
+			const auth = firebase.auth();
+			var location = document.getElementById("location");
+			console.log(location)
+			var location_val = location.options[location.selectedIndex].value;
+			console.log(location_val);
+
+
+			auth.createUserWithEmailAndPassword(String(dipp),String(password)).catch(function(error){
+			console.log("error = ",error);
+			});
+
+            auth.onAuthStateChanged(function(user){
+
+				console.log("user = ",user);
+				var uid  = user.uid;
+				console.log(uid);
+				if(user){
+
+
+				//create Sinch User
+				console.log("hjjb");
+				create_sinch_user(user.uid);
+				// firebase.auth().onAuthStateChanged(function(user) {
+				console.log("hjjb");
+				// if(user){
+
+				// from auth uid and type
+
+				// var uid = "h9m5EnsIMRaZrdSPPnPMpkkvQ4v2";
+				// var type = "startup";
+
+				var type = document.getElementById("type");
+				var user_type = type.options[type.selectedIndex].value;
+
+				if(user_type=="mentor"){
+					console.log("here in mentor");
+					var domain = document.getElementById("domain").value;
+					var name = document.getElementById("name").value;
+					var experience = document.getElementById("experience").value;
+					var sector = document.getElementById("sector").value;
+					var email = document.getElementById("email").value;
+					var password = document.getElementById("password").value;
+					var location = document.getElementById("location");
+					console.log(location)
+					var location_val = location.options[location.selectedIndex].value;
+					var description = document.getElementById("description").value;
+
+					var admin = document.getElementById("admin_id");
+					var admin_val = $(admin.options[admin.selectedIndex]).attr('id');
+
+					root.child("Users").child(uid).child("domain").set(domain);
+					root.child("Users").child(uid).child("name").set(name);
+					root.child("Users").child(uid).child("experience").set(experience);
+					root.child("Users").child(uid).child("email").set(email);
+					root.child("Users").child(uid).child("password").set(password);
+					root.child("Users").child(uid).child("Dipp").set(dipp);
+					root.child("Users").child(uid).child("sector").set(sector);
+					root.child("Users").child(uid).child("location").set(location_val);
+					root.child("Users").child(uid).child("description").set(description);
+					root.child("Users").child(uid).child("type").set(user_type);
+					root.child("Users").child(uid).child("admin").set(admin_val);
+					
+					//here only one admin id has been considered (i.e only one admin)
+					//root.child("Admin_mentor_structure").child("38l08HvGr4hUutPUQNe1Sx1cITp2").child("mentor_requests").push(uid); 
+					root.child("Admin_mentor_structure").child("38l08HvGr4hUutPUQNe1Sx1cITp2").child("mentor_requests").child(uid).set("Requested"); 
+
+
+
+				}
+				else{
+					console.log("here in startup");
+					var startup_name = document.getElementById("startup_name").value;
+					var stage = document.getElementById("stage");
+					var stage = stage.options[stage.selectedIndex].value;
+					var domain = document.getElementById("domain").value;
+					var sector = document.getElementById("sector").value;
+					var email = document.getElementById("email").value;
+					var password = document.getElementById("password").value;
+					var location = document.getElementById("location");
+					var location = location.options[location.selectedIndex].value;
+					var description = document.getElementById("description").value;
+
+					root.child("Users").child(uid).child("domain").set(domain);
+					root.child("Users").child(uid).child("startup_name").set(startup_name);
+					root.child("Users").child(uid).child("stage").set(stage);
+					root.child("Users").child(uid).child("email").set(email);
+					root.child("Users").child(uid).child("password").set(password);
+					root.child("Users").child(uid).child("Dipp").set(dipp);
+					root.child("Users").child(uid).child("sector").set(sector);
+					root.child("Users").child(uid).child("location").set(location);
+					root.child("Users").child(uid).child("description").set(description);
+					root.child("Users").child(uid).child("type").set(user_type);
+				}
+				console.log("User is signed in and registered successfully");
+				$this.button('reset');
+				if(user_type=="startup"){
+              console.log("here");
+              window.location.href="final_dashboard.html";
+            }
+            else if(user_type=="mentor"){
+              window.location.href="Mentor%20dash.html";
+            }
+				
+				}
+			
+				else{
+				    console.log("user is not signedIn")
+				}
+				});
+
+				
+		
+		}
+		var d_list = [];
+		
+		function load_domains(){
+			console.log("load_domains() called");
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			root.child("Domain").once("value",function(snap){
+				d_l = snap.val();
+				console.log(d_l);
+				for(u in d_l){
+					d_list.push(u);
+				}
+				ret_domains()
+				
+			});
+		}
+
+		function ret_domains(){
+			console.log("ret_domains() called");
+			console.log(d_list);
+			var d_id = document.getElementById("domain");
+			d_id.innerHTML="";
+
+			for(var t=0;t<d_list.length;t++){
+				d_id.innerHTML+=`<option value="`+d_list[t]+`">`+d_list[t]+`</option>`;
+			}
+
+		}
+
+		var s_list;
+		var new_s_list = [];
+		function extract_sector(){
+			console.log("Extract_sector called()");
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			var selected_domain = document.getElementById("domain");
+			selected_domain = selected_domain.options[selected_domain.selectedIndex].value;
+
+			root.child("Domain").child(selected_domain).once("value",function(snapshot){
+				s_list = snapshot.val();
+				console.log(s_list);
+				ret_sector();
+				
+			});
+
+
+		}
+
+		function ret_sector(){
+			var s_id = document.getElementById("sector");
+			new_s_list = s_list.split(',');
+			s_id.innerHTML="";
+			for(var r=0;r<new_s_list.length;r++){
+				console.log(new_s_list[r]);
+				s_id.innerHTML+=`<option value="`+new_s_list[r]+`">`+new_s_list[r]+`</option>`;
+			}
+		}
+
+		function extract_fields(){
+			console.log("here");
+			var type = document.getElementById("type");
+			var user_type = type.options[type.selectedIndex].value;
+			console.log(user_type);
+			var prev = document.getElementById("type_details");
+			if(user_type=="mentor"){
+				try{
+					get_options();
+					document.getElementById("extra_fields").innerHTML="";
+
+				}
+				catch(error){
+					console.log(error);
+				}
+				
+				document.getElementById("Dipp").placeholder="Government ID";
+				
+
+				document.getElementById("extra_fields").innerHTML=`<div id="mentor"><div class="form-row">
+							<input type="text" name="street" class="street" id="name" placeholder="Name" required>
+										   </div>
+										   <div class="form-row">
+							<input type="text" name="street" class="street" id="experience" placeholder="experiencee" required>
+										   </div></div> <div class="form-row form-row-2">
+							<select id="admin_id" name="admin">
+								<option>Select Your Admin...</option>
+								</select>
+							<span class="select-btn">
+							  	<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+						</div></div>`;
+						console.log("ending of mentor if");
+			}
+			else{
+				try{
+					console.log("Here");
+					document.getElementById("extra_fields").innerHTML="";
+				}
+				catch(error){
+					console.log(error);
+				}
+
+			
+			document.getElementById("extra_fields").innerHTML=`<div id="startup"><div class="form-row">
+							<input type="text" name="street" class="street" id="startup_name" placeholder="Startup Name" required>
+					</div>
+					<div class="form-row" id="type_details">
+						<select id="stage" name="stage">
+						    <option value="Ideation">Ideation</option>
+							<option value="Validation">Validation</option>
+							<option value="Early Traction">Early Traction</option>
+							<option value="Scaling">Scaling</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>
+					</div></div>`;
+				}
+		}
+		var l = [];
+
+		function append_opt(l,u_id){
+			console.log("L",l);
+			
+				document.getElementById("admin_id").innerHTML+=` <option id="`+u_id+`" value="`+l+`">`+l+`</option>`;
+
+		}
+		function send_data(item,u_id){
+			var l=[];
+			l.push(item);
+			append_opt(l,u_id);
+
+		}
+		function admin_name(u_id){
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			root.child("Users").child(u_id).once("value", function(snapshot) {
+			m = snapshot.val();
+			console.log(m["name"]);
+			send_data(m["name"],u_id);
+			
+		});
+		}
+
+		function get_options(){
+			var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+			root.child("Admin_mentor_structure").once("value", function(snapshot) {
+			m = snapshot.val();
+			for (i in m ){
+				console.log("i",i);
+				admin_name(i);
+
+			}
+
+			
+		});
+			
+		}
+
+		get_options();
+
+
+			</script>
+</head>
+<body class="form-v10">
+	<div class="page-content">
+		<div class="form-v10-content">
+			<form class="form-detail" style="width:200" action="#" method="post" id="myform">
+
+				<div class="form-right" style="width:200">
+					<h4>Details</h4>
+					<div class="form-row" id="type_details">
+						<select onchange="extract_fields()" id="type" name="mentor or startup">
+							<option value="">Choose type</option>
+						    <option value="mentor">Mentor</option>
+						    <option value="startup">Startup</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>
+					</div>
+					<div id="extra_fields" ></div>
+					<!-- <div class="form-row">
+							<input type="text" name="street" class="street" id="startup_name" placeholder="startup Name" required>
+						</div> -->
+					<div class="form-row" id="type_details">
+							<select onchange="extract_sector()" id="domain" name="mentor or startup">
+								<option value="">Choose Domain</option>
+								
+							</select>
+							<span class="select-btn">
+									<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+						</div>
+					<!-- <div class="form-row">
+						<input onchange="extract_sector()" type="text" name="additional" class="additional" id="domain" placeholder="Domain" required>
+					</div> -->
+					<div class="form-row">
+							<input type="text" name="Dipp" class="Dipp" id="Dipp" placeholder="DIPP no." required>
+					</div>
+					<div class="form-group">
+					<div class="form-row" id="type_details">
+							<select id="sector" name="mentor or startup">
+								<option value="">Choose Sector</option>
+								
+							</select>
+							<span class="select-btn">
+									<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+						</div>
+						<!-- <div class="form-row form-row-1">
+							<input type="text" name="zip" class="zip" id="sector" placeholder="Sector" required>
+						</div> -->
+						<div class="form-row form-row-2">
+							<select id="location" name="place">
+							    <option value="place">Mumbai,Maharashtra</option>
+							    <option value="Street">Delhi</option>
+							    <option value="District">Kanpur,UP</option>
+							    <option value="City">Bangalore</option>
+							</select>
+							<span class="select-btn">
+							  	<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+						</div>
+					</div>
+					<!-- <div class="form-row">
+						<select id="country" name="country">
+						    <option value="country">Country</option>
+						    <option value="Vietnam">Vietnam</option>
+						    <option value="Malaysia">Malaysia</option>
+						    <option value="India">India</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>
+					</div> -->
+					<!-- <div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="code" class="code" id="code" placeholder="Code +" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+						</div>
+					</div> -->
+
+					<div class="form-row">
+						<textarea id="description" placeholder="Description"></textarea>
+					</div>
+					
+
+				
+					<div class="form-row">
+							<input type="email" name="additional" class="additional" id="email" placeholder="Email" required>
+					</div>
+					<div class="form-row">
+							<input type="password" placeholder="Password" id="password" required>
+					</div>
+
+					<div class="form-checkbox">
+							<label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+								  <input type="checkbox" name="checkbox">
+								  <span class="checkmark"></span>
+							</label>
+						</div>
+					<div class="form-row-last">
+						<input type="button" name="register" class="register" onclick="SignUp()" value="Register">
+					</div>
+					<!-- <div class="form-row-last">
+					<button name="register" class="register" onclick="SignUp()" value="Register" type="button" class="btn btn-primary btn-lg " id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Register</button><br>
+					</div> -->
+				</div>
+			</form>
+		</div>
+	</div>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

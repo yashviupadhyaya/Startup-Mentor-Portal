@@ -1,0 +1,3463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>SIH</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- chartist CSS -->
+    <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="../assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!--This page css - Morris CSS -->
+    <link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+    <link rel="stylesheet" href="css/1.css">
+    <!-- @@@@@@@@@@@@@@@@@@@@@-->
+    <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+
+    <!--Firebase CDN's-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <!--End of firebase-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <script src="admin.js"></script>
+
+    <script>
+
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+        authDomain: "endgame-ad6a9.firebaseapp.com",
+        databaseURL: "https://endgame-ad6a9.firebaseio.com",
+        projectId: "endgame-ad6a9",
+        storageBucket: "endgame-ad6a9.appspot.com",
+        messagingSenderId: "570139431068"
+    };
+    firebase.initializeApp(config);
+
+    $(document).ready(function(){
+
+      mentorrequests();
+    })
+    var startup_mentor_pairs=[];
+        // var mentor_startup_pairs={};
+        var s=[];
+        var my_id="38l08HvGr4hUutPUQNe1Sx1cITp2"
+
+
+    var e=[];
+    function mentorrequests(){
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+            root.child("Admin_mentor_structure").child(my_id).child("mentor_requests").once("value", function(snapshot){
+              console.log(snapshot.val());
+              var requests = snapshot.val();
+              console.log(requests);
+              for(d in requests){
+                    // if(requests[d]["status"]=="Granted"){
+                        console.log("startup = ",d);
+                        //s.push(d);
+                        startup_mentor_pairs.push(d);
+                        //getm();
+                    // }
+                }
+                load_mentors(startup_mentor_pairs)
+
+});
+        }
+
+
+   g=[];
+
+    function load_mentors(mentor){
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+        console.log("Called");
+
+        console.log(mentor);
+        for (var key=0;key<mentor.length;key++){
+
+           var idment=mentor[key];
+           console.log("idment",idment);
+           dynamic(idment);
+          }}
+            // if (x=="domain"){
+            //   var domain=r[x];
+            //   console.log(domain);
+            // }
+            // else{
+            //   domain="null";
+            // }
+          function dynamic(idment){
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+            root.child("Users").child(idment).once("value",function(snapshot){
+
+            var r=snapshot.val();
+
+            console.log("r",);
+            var name=r["name"];
+
+
+
+            console.log("in function",idment);
+             console.log("load mentor",name);
+
+             row_id="row_"+idment;
+             details_id="details_"+idment;
+             // <a href="#" id="c5"><img src="http://lorempixel.com/100/100/people/9" alt="" /></a>
+          var my = document.getElementById("my");
+
+
+                my.innerHTML+=`
+
+                           <tr>
+                              <td> <br><br><div class="tree">
+                                <ul>
+
+                                    <li id=`+row_id+`>
+                                        <a href="#" onclick="getstartup(this)" id="c5" name=`+idment+`><img src="http://lorempixel.com/100/100/people/9" alt="" /></a>
+
+
+
+                                    </li>
+
+                                </ul></div></td>
+                                <td><br><br>
+                                <div id=`+details_id+` style="border-radius: 10px;box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.05);background-color: #ffffff;height:100%">`+name+`<br><br></div>
+                            </td>
+
+                           </tr>
+
+
+                    `;
+
+       });  }
+var second="";
+var final="";
+      var j=[];
+function getstartup(to_id){
+  alert("called");
+   console.log(to_id);
+   var x= $(to_id).attr("name");
+    console.log("k",to_id);
+    retrieve_startups_of_mentor(x);
+    setTimeout(function(){
+      final+=`<ul id="c6">`+second+`</ul>`;
+      console.log("Final is",final);
+      row_id="row_"+x;
+      console.log(row_id);
+      document.getElementById(row_id).innerHTML+=final;
+      //to_id.innerHTML+=final;
+      final="";
+
+
+},2000);
+
+
+       console.log(final);
+      }
+
+
+        function retrieve_startups_of_mentor(mentor_id){
+          console.log("second",second);
+          second="";
+          console.log("second after",second);
+          var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+          root.child("Users").child(mentor_id).child("startups").once("value",function(snapshot){
+            snapshot.forEach(function(childSnapshot) {
+
+                  var r=childSnapshot.key();
+                  console.log("r",r);
+                  console.log(obtain_startup_name(r,mentor_id));
+
+
+                });
+              console.log(second);
+             });
+        }
+
+        function get_details_of_startup(ref){
+          var startup_name=$(ref).attr("id");
+          var mentor_id=$(ref).attr("name");
+          console.log(mentor_id);
+          startup_obj=$(document.getElementById(startup_name)).data("Object");
+          details_id="details_"+mentor_id;
+          console.log(details_id);
+          console.log(startup_obj["Location"]);
+          console.log(document.getElementById(details_id));
+          console.log(document.getElementById(details_id).innerHTML);
+          document.getElementById(details_id).innerHTML=startup_obj["Location"]+"<br><br";
+        }
+
+        function obtain_startup_name(r,mentor_id){
+
+          var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+          root.child("Users").child(r).once("value",function(snapshot){
+            var startup_name=snapshot.val();
+            console.log("in getstartup",startup_name);
+            second+=`<li ><a href="#" name=`+mentor_id+` id="`+startup_name["name"]+`" onclick="get_details_of_startup(this)">`+startup_name["name"]+`</a></li>`;
+            string="#"+startup_name["name"];
+            console.log(string);
+            console.log(document.getElementById(startup_name["name"]));
+            setTimeout(function(){
+
+              store_details(startup_name,startup_name["name"]);
+            },2000);
+
+            console.log("ending firebase thread",second);
+            console.log("Returning from obtain startup name",second);
+            //return second;
+
+          }, function (error) {
+
+            alert("Kuch toh gadbad hai Daya");
+
+           });
+
+
+
+
+
+        }
+
+        function store_details(json_obj,name){
+          $(document.getElementById(name)).data("Object",json_obj);
+          console.log($(document.getElementById(name)).data("Object"));
+        }
+
+    </script>
+    <script src="sinch.min.js"></script>
+    <script src="video_calling.js"></script>
+
+<link rel="stylesheet" href="css/navbar.css">
+<style>
+
+.modal-body{
+    height: 500px;
+    width: 200px;
+}
+
+.modal-header{
+    border-radius: 5px 5px 0px 0px;
+}
+
+
+
+#top{
+    background-color:  #1e88e5;
+    border-radius: 5px 5px 0px 0px;
+ }
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+.tree ul { padding-top: 20px; position: relative;}
+.tree li {	float: left; text-align: center;	list-style-type: none;	position: relative; padding: 20px 5px 0 5px;}
+
+/*We will use ::before and ::after to draw the connectors*/
+.tree li::before, .tree li::after{	content: '';	position: absolute; top: 0; right: 50%;	border-top: 1px solid #ccc;	width: 50%; height: 20px;}
+.tree li::after{right: auto; left: 50%;	border-left: 1px solid #ccc;}
+
+/*We need to remove left-right connectors from elements without any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {	display: none;}
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{	border: 0 none;}
+
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{	border-right: 1px solid #ccc;	border-radius: 0 5px 0 0;	-webkit-border-radius: 0 5px 0 0;	-moz-border-radius: 0 5px 0 0;}
+.tree li:first-child::after{	border-radius: 5px 0 0 0;	-webkit-border-radius: 5px 0 0 0;	-moz-border-radius: 5px 0 0 0;}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{	content: '';	position: absolute; top: 0; left: 50%;	border-left: 1px solid #ccc;	width: 0; height: 20px;}
+.tree li a{	border: 1px solid #ccc;	padding: 5px 10px;	text-decoration: none;	color: #666;	font-family: arial, verdana, tahoma;	font-size: 11px;	display: inline-block; 	border-radius: 5px;	-webkit-border-radius: 5px;	-moz-border-radius: 5px;}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree li a:hover, .tree li a:hover+ul li a {	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;}
+
+/*Connector styles on hover*/
+.tree li a:hover+ul li::after, .tree li a:hover+ul li::before, .tree li a:hover+ul::before, .tree li a:hover+ul ul::before{	border-color:  #94a0b4;}
+
+.table-header {
+  background-color: #3a9aee;
+  color: white;
+  font-size: 1.5em;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.table-users {
+    /* border: 1px solid #327a81; */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.05);
+    max-width: calc(100% - 2em);
+    margin: 1em auto;
+    overflow: hidden;
+    width: 800px;
+}
+
+table {
+  width: 100%;
+}
+table td, table th {
+  color: #2b686e;
+  padding: 10px;
+}
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+table td:last-child {
+  font-size: 0.95em;
+  line-height: 1.4;
+  text-align: center;
+}
+table th {
+  background-color: #daeff1;
+  font-weight: 300;
+}
+table tr:nth-child(2n) {
+  background-color: white;
+}
+table tr:nth-child(2n+1) {
+  background-color: #edf7f8;
+}
+
+@media screen and (max-width: 700px) {
+  table, tr, td {
+    display: block;
+  }
+
+  td:first-child {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    width: 100px;
+  }
+  td:not(:first-child) {
+    clear: both;
+    margin-left: 100px;
+    padding: 4px 20px 4px 90px;
+    position: relative;
+    text-align: left;
+  }
+  td:not(:first-child):before {
+    color: #91ced4;
+    content: '';
+    display: block;
+    left: 0;
+    position: absolute;
+  }
+  td:nth-child(2):before {
+    content: 'Name:';
+  }
+  td:nth-child(3):before {
+    content: 'Email:';
+  }
+  td:nth-child(4):before {
+    content: 'Phone:';
+  }
+  td:nth-child(5):before {
+    content: 'Comments:';
+  }
+
+  tr {
+    padding: 10px 0;
+    position: relative;
+  }
+  tr:first-child {
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .table-header {
+    background-color: transparent;
+    color: white;
+    font-size: 2em;
+    font-weight: 700;
+    padding: 0;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    border: 3px solid;
+    border-color: #daeff1;
+    height: 100px;
+    margin: 0.5rem 0;
+    width: 100px;
+  }
+
+  td:first-child {
+    background-color: #c8e7ea;
+    border-bottom: 1px solid #91ced4;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    top: 0;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    width: 100%;
+  }
+  td:not(:first-child) {
+    margin: 0;
+    padding: 5px 1em;
+    width: 100%;
+  }
+  td:not(:first-child):before {
+    font-size: .8em;
+    padding-top: 0.3em;
+    position: relative;
+  }
+  td:last-child {
+    padding-bottom: 1rem !important;
+  }
+
+  tr {
+    background-color: white !important;
+    border: 1px solid #6cbec6;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+    padding: 0;
+  }
+
+  .table-users {
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+}
+/*@@@@@@@@@@@@@@@@@@@*/
+
+/* #news{margin : 10px 0px 0px 150px}
+.alert_list{font-size: 11px; color:grey}
+li.alert_li {
+  font-size: 11px;
+  color:grey;
+  padding:10px 0px 2px 0px;
+  border-bottom: thin solid #c0c0c0;
+}
+li.alert_li:hover{background-color:#eee}
+.turn_off_alert{float:right;margin-bottom :1px}
+a.alert_message{color : grey}
+a.alert_message:hover{color : grey}
+
+
+.people-you-might-know {
+  background-color: #fefefe;
+  padding: 1rem 0 0;
+  border: 1px solid #cacaca;
+  box-shadow: 0 0 3.125rem rgba(0, 0, 0, 0.18);
+}
+
+.people-you-might-know .add-people-header {
+  padding: 0 0.9375rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-header .header-title {
+  font-weight: bold;
+}
+
+.people-you-might-know .add-people-section {
+  margin: 1rem 0 0;
+  padding-bottom: 1rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar {
+  padding-right: 0.5rem;
+  padding-left: 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar .avatar-image {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author {
+  -webkit-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-name {
+  color: #0a0a0a;
+  margin: 0.375rem 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-location,
+.people-you-might-know .add-people-section .about-people .about-people-author .author-mutual {
+  color: #8a8a8a;
+  margin-bottom: 0;
+  font-size: 0.85em;
+}
+
+.people-you-might-know .add-people-section .add-friend {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .people-you-might-know .add-people-section .add-friend {
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+}
+
+.people-you-might-know .add-people-section .add-friend .add-friend-action {
+  margin-top: 0.7rem;
+}
+
+.people-you-might-know .view-more-people {
+  margin: .7rem 0;
+}
+
+.people-you-might-know .view-more-people .view-more-text {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link {
+  color: #1779ba;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link:hover, .people-you-might-know .view-more-people .view-more-text .view-more-link:focus {
+  text-decoration: underline;
+}
+ */
+
+/*@@@@@@@@@@@*/
+
+
+</style>
+
+<style type="text/css">
+/*  body {background:url(http://i.hizliresim.com/68k46P.png)center center fixed no-repeat; background-size:cover; margin:0; padding:0;}
+*/
+.m-red {background:#1e88e5; color:#fff; text-decoration:none;}
+
+.m-nav {width:100%; height:60px; display:inline-block; text-align:right;}
+
+.m-nav input[type="text"] {float:right; margin-right: 20px; background:rgba(255,255,255,0.3); border:none; padding:8px; outline:none; color:#fff; margin-top:10px;  font-family:"Roboto",Arial sans-serif; height:40px; display:inline-block; transition:0.5s ease all; width:20%;  border-radius: 5px;}
+
+.m-nav input[type="text"]:hover {background:rgba(255,255,255,0.5); transition:0.5s ease all;}
+
+.m-nav input[type="text"]:focus {background:#fff; color:#333; transition:0.5s ease all;}
+
+.m-nav input::-webkit-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input:-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-o-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav li {list-style:none; float:left; display:inline-block;}
+
+.m-nav li a {text-decoration:none; padding:6px 9px; transition:0.70s ease all; margin-top:7px; margin-left:7px; display:inline-block; cursor:pointer;}
+
+.m-nav li a:hover {background:rgba(255,255,255,0.3); transition:0.70s ease all;}
+
+
+
+
+</style>
+
+
+
+
+
+<style type="text/css">
+*{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  color: white;
+  /*height: 40px;*/
+/*  font-family: monospace, Helvetica, Verdana, Geneva, sans-serif;
+*/
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+}
+#pagewrap{
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* main header */
+
+#main, nav, section, footer{
+  margin: 1%;
+}
+
+#main{
+  width: 100%;
+  height: auto;
+  margin: 0 auto 2% auto;
+  background-image: url(imgs/firewatch-pixelated.png);
+  background-size: cover;
+  background-position: 50% 20%;
+  padding-top: 50vh;
+  padding-bottom: 50vh;
+}
+
+#main h1{
+  text-align: center;
+  font-size: 3em;
+}
+/* end of main header */
+
+/* navigation section */
+
+nav{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 30px 30px;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+  height: 8%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* an underline appears at the bottom on hover of each link */
+nav ul li a:hover, nav ul li a:active{
+  border-bottom: 5px solid #1e88e5;
+  padding-bottom: 16px;
+  border-radius: 20px 20px 0px 0px;
+}
+/* end of navigation section*/
+
+/* left column of first content */
+.left-section{
+  float: left;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.left-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of left column of first content */
+
+/* right column of first content */
+.right-section{
+  float: right;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-indent: 5px;
+  text-align: center;
+}
+
+.right-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of right column of first content */
+
+/* footer */
+footer{
+  clear: both;
+}
+
+footer p{
+  padding: 30px;
+}
+/* end of footer */
+
+
+/******* MEDIA QUERIES *******/
+
+@media (max-width: 900px){
+  #pagewrap {
+    width: auto;
+    float: none;
+  }
+
+  .left-section {
+    width: auto;
+    float: none;
+    margin: 1%;
+  }
+
+  .right-section{
+    width: auto;
+    float: none;
+    margin: 1%;
+  }
+
+  .imgs{
+    width: 100%;
+    float: none;
+  }
+
+  #left-image, #middle-image{
+    margin: none;
+  }
+
+  nav ul li a{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 400px){
+  body{
+    font-size: .98em;
+  }
+
+  nav ul li{
+    padding: 5px;
+  }
+}
+
+</style>
+
+
+
+
+
+<style>
+
+/*-------------Live Chat----------*/
+@mixin center {
+  position: relative;
+/*  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);*/
+}
+
+@mixin ball {
+  @include center;
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+/*  background: rgba(255, 255, 255, .5);*/
+  background:#888;
+  z-index: 2;
+  margin-top: 4px;
+  animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
+}
+
+
+/*--------------------
+Body
+--------------------*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  /*height: 100%;*/
+}
+
+body {
+ background: linear-gradient(135deg, #044f48, #345093);
+  background-size: cover;
+background:#fff;
+  font-family: 'Avenir', 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  /*overflow: hidden;*/
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  /* background: url('https://images.unsplash.com/photo-1451186859696-371d9477be93?crop=entropy&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925') no-repeat 0 0;*/
+  filter: blur(80px);
+  transform: scale(1.2);
+ background: #fff;
+}
+
+
+/*--------------------
+Chat
+--------------------*/
+
+.chat {
+  @include center;
+  width: 100%;
+  height: calc(100% - 15px);
+  max-height: 500px;
+  z-index: 10;
+  overflow: hidden;
+  /*box-shadow: 0 5px 30px rgba(0, 0, 0, .2);*/
+  /* background: rgba(0, 0, 0, .5);*/
+  background: transparent;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+
+/*--------------------
+Chat Title
+--------------------*/
+
+.chat-title {
+  flex: 0 1 45px;
+  position: relative;
+  z-index: 2;
+  width:100%;
+  border-bottom:1px solid #ccc;
+  color: #777;
+  padding-top:50px;
+  padding-bottom:5px;
+  background-color:#fff;
+  text-transform: uppercase;
+  text-align: center;
+
+  h1,
+  h2 {
+    font-weight: normal;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+
+  }
+  h2 {
+    /* color: rgba(255, 255, 255, .8);*/
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  .avatar {
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    left: 9px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
+/*--------------------
+Messages
+--------------------*/
+
+.messages {
+  flex: 1 1 auto;
+  /*  color: rgba(255, 255, 255, .5);
+  color: #fff;*/
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  & .messages-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 101%;
+    width: 100%;
+  }
+  .message {
+    clear: both;
+    float: left;
+    padding: 6px 10px 7px;
+    -webkit-border-radius: 20px 20px 20px 0;
+    -moz-border-radius: 20px 20px 20px 0;
+    border-radius: 20px 20px 20px 0;
+    background: #eee; /*rgba(0, 0, 0, 0.1);*/
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-left: 35px;
+    position: relative;
+    border:1px solid #ccc;
+    /*text-shadow: 0 1px 1px rgba(0, 0, 0, .2);*/
+    .timestamp {
+      position: absolute;
+      bottom: -15px;
+      font-size: 10px;
+      color: #555;
+       right:30px;
+      /* color: rgba(255, 255, 255, .7);*/
+
+    }
+    .checkmark-sent-delivered {
+      position: absolute;
+      bottom: -15px;
+     right: 10px;
+      font-size:12px;
+      color:#999;
+    }
+    .checkmark-read {
+      color:blue;
+       position: absolute;
+      bottom: -15px;
+     right: 16px;
+      font-size:12px;
+    }
+    &::before {
+    /*  content: '';
+      position: absolute;
+      bottom: -6px;
+      border-top: 6px solid rgba(0, 0, 0, 0.1);
+      left: 0;
+      border-right: 7px solid transparent;*/
+    }
+
+    .avatar {
+      position: absolute;
+      z-index: 1;
+      bottom: -15px;
+      left: -35px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      border-radius: 30px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    &.message-personal {
+      float: right;
+      text-align: right;
+/*      background: linear-gradient(120deg, #ddd, #eee);*/
+      background:#fff;
+      border:1px solid #ccc /*#4A90E2*/;
+      -webkit-border-radius: 20px 20px 0 20px;
+      -moz-border-radius: 20px 20px 0 20px;
+      border-radius: 20px 20px 0 20px;
+
+      &::before {
+
+      /*
+          content:"";
+      border-color:#4A90E2 transparent;
+        width:0;
+        border-style:solid;*/
+        /*
+        left: auto;
+        right: 0;
+        border-right: none;
+       border-left: 8px solid transparent;
+        border-top: 9px solid #fff;
+
+        bottom: -8px;*/
+      }
+
+    }
+    &:last-child {
+      margin-bottom: 30px;
+    }
+    &.new {
+      transform: scale(0);
+      transform-origin: 0 0;
+      animation: bounce 500ms linear both;
+    }
+    &.loading {
+      &::before {
+        @include ball;
+        border: none;
+        animation-delay: .15s;
+      }
+      & span {
+        display: block;
+        font-size: 0;
+        width: 20px;
+        height: 10px;
+        position: relative;
+        &::before {
+          @include ball;
+          margin-left: -7px;
+        }
+        &::after {
+          @include ball;
+          margin-left: 7px;
+          animation-delay: .3s;
+        }
+      }
+    }
+  }
+}
+
+
+/*--------------------
+Message Box
+--------------------*/
+
+.message-box {
+  flex: 0 1 42px;
+  width: 90%;
+  background: #fff;
+  margin:2px auto;
+/*-webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
+-moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
+box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);*/
+  /*background: rgba(0, 0, 0, 0.3);
+    border-top:1px solid #e3e3e3;*/
+  padding: 10px;
+  position: relative;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  height:14px;
+  border:1px solid #ccc;
+
+  & .message-input {
+    background: none;
+    border: none;
+    outline: none!important;
+    resize: none;
+    /* color: rgba(255, 255, 255, .8);*/
+    font-size: 15px;
+    height: 24px;
+    margin: 0;
+    padding-right: 20px;
+    width: 265px;
+    color: #444;
+  }
+  textarea:focus:-webkit-placeholder {
+    color: transparent;
+  }
+  & .message-submit {
+    position: absolute;
+    z-index: 1;
+    top: 9px;
+    right: 10px;
+    color: #4A90E2;
+    border: none;
+   /* background: #c29d5f;*/
+    background: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 5px;
+    outline: none!important;
+    transition: background .2s ease;
+    cursor:pointer;
+    &:hover {
+      background: #fff;
+      color: #333;
+    }
+  }
+}
+
+
+/*--------------------
+Custom Srollbar
+--------------------*/
+
+.mCSB_scrollTools {
+  margin: 1px -3px 1px 0;
+  opacity: 0;
+}
+
+.mCSB_inside > .mCSB_container {
+  margin-right: 0px;
+  padding: 0 10px;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.5)!important;
+}
+
+
+/*--------------------
+Bounce
+--------------------*/
+
+@keyframes bounce {
+  0% {
+    transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  4.7% {
+    transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  9.41% {
+    transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  14.11% {
+    transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  18.72% {
+    transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  24.32% {
+    transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  29.93% {
+    transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  35.54% {
+    transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  41.04% {
+    transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  52.15% {
+    transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  63.26% {
+    transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  85.49% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+}
+
+@keyframes ball {
+  from {
+    transform: translateY(0) scaleY(.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+
+.avenue-messenger {
+    opacity: 1;
+    -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+    height: calc(100% - 60px)!important;
+  max-height:460px!important;
+  min-height:220px!important;
+    width: 300px;
+  /*  transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+  */
+    background: rgba(255, 255, 255, 0.9);
+      position: fixed;
+  right: 20px;
+    bottom: 20px;
+    margin: auto;
+    z-index: 10;
+    box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+  /*  transform: translateX(300px);*/
+    -webkit-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
+    -moz-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
+
+}
+
+.avenue-messenger div.agent-face {
+    position: absolute;
+    left: 0;
+    top: -50px;
+    right: 0;
+    margin: auto;
+    width: 101px;
+    height: 50px;
+    background: transparent;
+  z-index:12;
+
+
+}
+
+
+.avenue-messenger div {
+    font-size: 14px;
+    color:#232323;
+}
+
+#chat_box{
+
+border:2px;
+padding:10px;
+word-wrap: break-word;
+
+}
+.close {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em; opacity: 0.5;
+  /*border: 1px solid #ccc;
+  color:#ccc;*/
+/* -webkit-box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.5);
+-moz-box-shadow:    0px -1px 2px 0px rgba(0, 0, 0, 0.5);
+box-shadow:         0px -1px 2px 0px rgba(0, 0, 0, 0.5);*/
+}
+.close:hover {/*
+-webkit-box-shadow:  0 1px 1px rgba(0,0,0,0.3);
+-moz-box-shadow:  0 1px 1px rgba(0,0,0,0.3);
+box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
+  opacity:0.9;
+}
+
+.circle {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 2px solid #fff; /*#4A90E2;*/
+ /* -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
+
+}
+
+.contact-icon .circle:hover{
+ box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  transition:0.2s all ease-out 0.2s;
+  -webkit-transition:0.2s all ease-out 0.2s;
+  -moz-transition:0.2s all ease-out 0.2s;
+}
+
+
+.arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: #fff;
+    border-width: 5px;
+    margin-top: -5px;
+}
+.arrow_box {
+    position: relative;
+    background: #fff;
+    border: 1px solid #4A90E2;
+}
+.arrow_box:after, .arrow_box:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+
+.menu div.items {
+/*  height: 140px;
+  width: 180px;
+  overflow: hidden;
+  position: absolute;
+  left: -130px;
+  z-index: 2;
+  top: 20px;*/
+}
+
+.menu .items span {
+    color: #111;
+  z-index:12;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+  top:40px;
+    height: 86px;
+    line-height: 40px;
+    background: #fff;
+    border-left:1px solid #ccc;
+  border-bottom:1px solid #ccc;
+  border-right:1px solid #ccc;
+    width: 48px;
+    opacity: 0;
+   border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+    transition: .3s all ease-in-out;
+    -webkit-transition: .3s all ease-in-out;
+    -moz-transition: .3s all ease-in-out;
+}
+
+.menu .button {
+    font-size: 30px;
+
+    z-index:12;
+    text-align: right;
+    color: #333;
+    content: "...";
+    display: block;
+    width: 48px;
+    line-height: 25px;
+    height: 40px;
+    border-top-right-radius: 20px;
+/*  border-top-left-radius:20px;*/
+    position: absolute;
+    right: 0;
+  padding-right:10px;
+  cursor: pointer;
+  transition: .3s all ease-in-out;
+  -webkit-transition: .3s all ease-in-out;
+  -moz-transition: .3s all ease-in-out;
+}
+.menu .button.active {background: #ccc;}
+/*
+.menu .button:hover .menu .items span {
+  display: block;
+  left: -2px;
+  opacity: 1;
+}*/
+
+.menu .items span.active {
+  opacity:1;
+  /*border-radius:10px;
+  height: 180px;
+  width: 400px;
+  transform:translateY(0);
+  -webkit-transform:translateY(0);
+  -moz-transform:translateY(0);*/
+}
+
+.menu .items a {color:#111; text-decoration:none;}
+.menu .items a:hover{color:#777}
+
+
+
+@media only screen and (max-device-width: 667px), screen and (max-width: 450px) {
+.avenue-messenger {
+    z-index: 2147483001!important;
+    width: 100%!important;
+    height: 100%!important;
+    max-height: none!important;
+    top: 0!important;
+    left: 0!important;
+    right: 0!important;
+    bottom: 0!important;
+  -webkit-border-radius: 0!important;
+-moz-border-radius: 0!important;
+border-radius: 0!important;
+  background:#fff;
+
+
+}
+  .avenue-messenger div.agent-face {
+    top:-10px!important;
+   /* left:initial !important;*/
+  }
+  .chat {-webkit-border-radius: 0!important;
+-moz-border-radius: 0!important;
+border-radius: 0!important;
+  max-height:initial!important;}
+
+  .chat-title {
+    padding:20px 20px 15px 10px!important;
+    text-align:left;
+
+  }
+  .circle {
+    width:80px;
+    height:80px;
+    border:1px solid #fff;
+  }
+  .menu .button {
+    border-top-right-radius:0;
+  }
+}
+
+@media only screen and (min-device-width: 667px) {
+div.half {
+
+  margin: auto;
+  width: 80px;
+    height: 40px;
+    background-color: #fff;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+
+    border-bottom: 0;
+  box-shadow:1px 4px 20px rgba(22,20,19,0.6);
+  -webkit-box-shadow:1px 4px 20px rgba(22,20,19,0.6) ;
+  -moz-box-shadow:1px 4px 20px rgba(22,20,19,0.6);
+}
+}
+/*--------------------------------*/
+
+
+
+.open-button {
+  z-index:2147483001!important;
+  background-color:  #5A5EB9;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  position: fixed;
+  bottom: 29px;
+  right: 253px;
+  width: 250px;
+  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+}
+/* Live Chat Ends */
+
+li {
+  list-style: none;
+ }
+ul
+{
+    padding-inline-start: 0px;
+}
+#new
+{
+    margin-left:30px;
+    margin-right:30px;
+}
+#new1
+{
+    margin-left:30px;
+    /*margin-right:30px;*/
+}
+
+.product-filters {
+
+  /*padding: 0.5rem 0rem;*/
+  background-color: #fefefe;
+  margin-top: 1rem;
+}
+
+.product-filters label {
+  color: #8a8a8a;
+}
+
+.product-filters .menu.nested {
+  margin-left: 0rem;
+  margin-bottom: 0.9rem;
+}
+
+.product-filters .menu > li > a {
+
+  padding-left:0rem;
+  color: #4a4a4a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: none;
+}
+
+.product-filters .is-accordion-submenu-parent > a::after {
+  border-color: #cacaca transparent transparent;
+}
+
+.product-filters .clear-all {
+  font-size: 0.9rem;
+  color: #cacaca;
+}
+
+.product-filters .more {
+  color: #1779ba;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.product-filters-header {
+  font-size: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.product-filters-tab {
+
+  border-top: 1px solid #e6e6e6;
+}
+
+.product-filters-tab:last-child() {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.mobile-product-filters {
+  list-style: none;
+  border-bottom: 1px solid #e6e6e6;
+}
+.messages-content::-webkit-scrollbar { width: 0 !important }
+.column{
+    margin:0% 1% 1% 1%;
+      float: left;
+    padding: 0 10px;
+}
+
+.classwidth{
+      width: 240px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row{
+    justify-content: center;
+    margin: 0 -5px;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    /*width: 100%;*/
+    display: block;
+    /*margin-bottom: 20px;*/
+  }
+}
+</style>
+
+<style type="text/css">
+/* Page Styles */
+
+.container {
+    /*position: absolute;*/
+    top: 50%;
+    left: 62%;
+    /*margin-right: -50%;*/
+    -webkit-transform: translate(-50%, -50%);
+    /*transform: translate(-50%, -50%);*/
+    /*text-align: center;*/
+}
+
+
+/* Notifications */
+
+.notification {
+    display: inline-block;
+    /*position: relative;*/
+    padding: 0.6em;
+    /*background: #3498db;*/
+    border-radius: 0.2em;
+    font-size: 1.3em;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+}
+
+.notification::before,
+.notification::after {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification::before {
+    display: block;
+    content: "\f0f3";
+    font-family: "FontAwesome";
+    transform-origin: top center;
+}
+
+.notification::after {
+    font-family: Arial;
+    font-size: 0.7em;
+    font-weight: 700;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 5px 8px;
+    line-height: 100%;
+    border: 2px #fff solid;
+    border-radius: 60px;
+    background: #3498db;
+    opacity: 0;
+    content: attr(data-count);
+    opacity: 0;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    transition: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.notification.notify::before {
+    -webkit-animation: ring 1.5s ease;
+    animation: ring 1.5s ease;
+}
+
+.notification.show-count::after {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+@-webkit-keyframes ring {
+    0% {
+        -webkit-transform: rotate(35deg);
+    }
+    12.5% {
+        -webkit-transform: rotate(-30deg);
+    }
+    25% {
+        -webkit-transform: rotate(25deg);
+    }
+    37.5% {
+        -webkit-transform: rotate(-20deg);
+    }
+    50% {
+        -webkit-transform: rotate(15deg);
+    }
+    62.5% {
+        -webkit-transform: rotate(-10deg);
+    }
+    75% {
+        -webkit-transform: rotate(5deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@keyframes ring {
+    0% {
+        -webkit-transform: rotate(35deg);
+        transform: rotate(35deg);
+    }
+    12.5% {
+        -webkit-transform: rotate(-30deg);
+        transform: rotate(-30deg);
+    }
+    25% {
+        -webkit-transform: rotate(25deg);
+        transform: rotate(25deg);
+    }
+    37.5% {
+        -webkit-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+    }
+    50% {
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg);
+    }
+    62.5% {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+    75% {
+        -webkit-transform: rotate(5deg);
+        transform: rotate(5deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/*@@@@@@@@@@@@@@@@ Notification @@@@@@@@@@@@@@@@@*/
+.dropdown-container1.expanded .dropdown1 {
+  -webkit-animation: fadein .5s;
+  -moz-animation: fadein .5s;
+  -ms-animation: fadein .5s;
+  -o-animation: fadein .5s;
+  animation: fadein .5s;
+  display: block;
+}
+.dropdown-container1 .dropdown1 {
+  -webkit-animation: fadeout .5s;
+  -moz-animation: fadeout .5s;
+  -ms-animation: fadeout .5s;
+  -o-animation: fadeout .5s;
+  animation: fadeout .5s;
+  display: none;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  max-height: 600px;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  margin-top: 3px;
+  margin-right: -15px;
+  border-top: 4px solid #1e88e5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -webkit-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  /*
+  &:before{
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+    top: -13px;
+    right: 7px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $secondary-color;
+  }
+  */
+}
+.dropdown-container1 .dropdown1 .notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab {
+  padding: 0px 25px;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover {
+  cursor: pointer;
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .fa, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover h4, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list {
+  padding: 0;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item {
+  padding: 5px 25px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .message {
+  margin: 5px 5px 10px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer {
+  color: #3f51b5;
+  text-decoration: none;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer .date {
+  float: right;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:nth-of-type(odd) {
+  background: #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:hover {
+  cursor: pointer;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab {
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .fa, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab h4, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-list {
+  height: 250px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa, .dropdown-container1 .dropdown1 .notification-group h4, .dropdown-container1 .dropdown1 .notification-group .label {
+  color: #333;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa {
+  margin-right: 5px;
+  margin-top: 25px;
+}
+.dropdown-container1 .dropdown1 .notification-group .label {
+  float: right;
+  margin-top: 20px;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 0px 7px;
+  border-radius: 15px;
+}
+
+
+.dropdown-container {
+  overflow-y: hidden;
+}
+.dropdown-container.expanded .dropdown {
+  -webkit-animation: fadein .5s;
+  -moz-animation: fadein .5s;
+  -ms-animation: fadein .5s;
+  -o-animation: fadein .5s;
+  animation: fadein .5s;
+  display: block;
+}
+.dropdown-container .dropdown {
+  -webkit-animation: fadeout .5s;
+  -moz-animation: fadeout .5s;
+  -ms-animation: fadeout .5s;
+  -o-animation: fadeout .5s;
+  animation: fadeout .5s;
+  display: none;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  max-height: 600px;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  margin-top: 3px;
+  margin-right: -15px;
+  border-top: 4px solid #1e88e5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -webkit-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  /*
+  &:before{
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+    top: -13px;
+    right: 7px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $secondary-color;
+  }
+  */
+}
+.dropdown-container .dropdown .notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+.dropdown-container .dropdown .notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container .dropdown .notification-group .notification-tab {
+  padding: 0px 25px;
+  min-height: 65px;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover {
+  cursor: pointer;
+  background: #3f51b5;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover .fa, .dropdown-container .dropdown .notification-group .notification-tab:hover h4, .dropdown-container .dropdown .notification-group .notification-tab:hover .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container .dropdown .notification-group .notification-list {
+  padding: 0;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item {
+  padding: 5px 25px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .message {
+  margin: 5px 5px 10px;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .item-footer {
+  color: #3f51b5;
+  text-decoration: none;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .item-footer .date {
+  float: right;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:nth-of-type(odd) {
+  background: #e3e3e3;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:hover {
+  cursor: pointer;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab {
+  background: #3f51b5;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab .fa, .dropdown-container .dropdown .notification-group.expanded .notification-tab h4, .dropdown-container .dropdown .notification-group.expanded .notification-tab .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-list {
+  height: 250px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container .dropdown .notification-group .fa, .dropdown-container .dropdown .notification-group h4, .dropdown-container .dropdown .notification-group .label {
+  color: #333;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group .fa {
+  margin-right: 5px;
+  margin-top: 25px;
+}
+.dropdown-container .dropdown .notification-group .label {
+  float: right;
+  margin-top: 20px;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 0px 7px;
+  border-radius: 15px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.menu-link has-notifications circle {
+    font-size: xx-large;
+    padding-top: 1rem;
+}
+
+@media only screen and (max-width: 321px) {
+  .dropdown-container .dropdown .notification-group .notification-tab h4, .dropdown-container .dropdown1 .notification-group .notification-tab h4 {
+    display: none;
+  }
+  .dropdown-container .dropdown .notification-group .notification-tab:hover h4, .dropdown-container .dropdown1 .notification-group .notification-tab:hover h4 {
+    display: none;
+  }
+  .dropdown-container .dropdown .notification-group.expanded .notification-tab h4, .dropdown-container .dropdown1 .notification-group.expanded .notification-tab h4 {
+    display: none;
+  }
+}
+@media only screen and (max-width: 514px) {
+  .dropdown-container .dropdown, .dropdown-container .dropdown1 {
+    width: 100%;
+    margin: 0px;
+    left: 0;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+.people-you-might-know {
+  background-color: #fefefe;
+  padding: 1rem 0 0;
+  border: 1px solid #cacaca;
+  box-shadow: 0 0 3.125rem rgba(0, 0, 0, 0.18);
+}
+
+.people-you-might-know .add-people-header {
+  padding: 0 0.9375rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-header .header-title {
+  font-weight: bold;
+}
+
+.people-you-might-know .add-people-section {
+  margin: 1rem 0 0;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar {
+  padding-right: 0.5rem;
+  padding-left: 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar .avatar-image {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author {
+  -webkit-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-name {
+  color: #0a0a0a;
+  margin: 0.375rem 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-location,
+.people-you-might-know .add-people-section .about-people .about-people-author .author-mutual {
+  color: #8a8a8a;
+  margin-bottom: 0;
+  font-size: 0.85em;
+}
+
+.people-you-might-know .add-people-section .add-friend {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .people-you-might-know .add-people-section .add-friend {
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+}
+
+.people-you-might-know .add-people-section .add-friend .add-friend-action {
+  margin-top: 0.7rem;
+}
+
+.people-you-might-know .view-more-people {
+  margin: .7rem 0;
+}
+
+.people-you-might-know .view-more-people .view-more-text {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link {
+  color: #1779ba;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link:hover, .people-you-might-know .view-more-people .view-more-text .view-more-link:focus {
+  text-decoration: underline;
+}
+</style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar card-no-border" style="height:1700px;width:auto" >
+  <button id="call" onclick="call();">Call</button>
+  <button id="hangup">Hangup</button>
+  <button id="answer">Answer</button>
+  <div id="myModal" class="modal fade">
+
+      <div class="modal-dialog">
+
+          <div class="modal-content">
+  <div id="top">
+              <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                  <h4 class="modal-title" style="color: white"><strong>Video Call</strong></h4>
+
+              </div></div>
+
+              <div class="modal-body">
+
+
+                      <strong>VIDEO FRAME</strong>
+
+                      <div id="callLog"></div>
+                      <video id="videooutgoing" autoplay muted></video>
+                      <video id="videoincoming" autoplay></video>
+
+              </div>
+
+              <div class="modal-footer">
+
+                  <button type="button" class="btn btn-primary" onclick="answer();">Accept</button>
+
+                  <button type="button"  class="btn btn-default" data-dismiss="modal" onclick="hangup();" >Decline</button>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+    <div id="messenger"></div>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+       <center>
+
+
+    <main>
+
+    <div class="m-nav m-red" style="width: 100% margin-top:0px;">
+                                               <input type="text" placeholder="Search Box" >
+
+
+<div class="dropdown" style="float:left; margin-left: 10px; margin-top: 15px">
+  <button class="dropbtn" style="border:none; color:#fff; background-color: #1e88e5;">
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fa fa-user" ></i>
+  Profile </a></button>
+<div class="dropdown-content">
+                                <a class="dropdown-item" href="adminedit.html">My account</a>
+                                <a class="dropdown-item" onclick=Signout();>Log out</a>
+
+                            </div>
+            </div>
+<!--@@@@@@@@@@@@@@@@@@@@@ Notification start @@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+ <div class="dropdown-container1" >
+
+                                  <a href="#" data-dropdown="notificationMenu1" class="has-notifications">
+                                    <div class="notification"></div>
+                                  </a>
+                                  <div class="people-you-might-know dropdown1" name="notificationMenu1" id="start_req">
+                                    <p>Startup Req</p>
+                                    <div class="view-more-people">
+                                      <p class="view-more-text">
+                                        <a href="#" class="view-more-link">View More..</a>
+                                      </p>
+                                    </div>
+                                  </div>
+
+
+                                </div>
+                                <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+
+
+                                <script>
+                                //Open dropdown when clicking on element
+                                    $(document).on('click', "a[data-dropdown='notificationMenu1']",  function(e){
+                                      e.preventDefault();
+
+                                      var el = $(e.currentTarget);
+
+                                      $('body').prepend('<div id="dropdownOverlay1" style="background: transparent; height:100%;width:100%;position:fixed;"></div>')
+
+                                      var container = $(e.currentTarget).parent();
+                                      var dropdown = container.find('.dropdown1');
+                                      var containerWidth = container.width();
+                                      var containerHeight = container.height();
+
+                                      var anchorOffset = $(e.currentTarget).offset();
+
+                                      dropdown.css({
+                                        'right': containerWidth / 2 + 'px'
+                                      })
+
+                                      container.toggleClass('expanded')
+
+                                    });
+
+                                    //Close dropdowns on document click
+
+                                    $(document).on('click', '#dropdownOverlay1', function(e){
+                                      var el = $(e.currentTarget)[0].activeElement;
+
+                                      if(typeof $(el).attr('data-dropdown') === 'undefined'){
+                                        $('#dropdownOverlay1').remove();
+                                        $('.dropdown-container1.expanded').removeClass('expanded');
+                                      }
+                                    })
+
+
+                                    </script>
+
+                                    <div class="dropdown-container"  id="ment_authen">
+                                  <a href="#" data-dropdown="notificationMenu" class="has-notifications">
+                                    <div class="notification"></div>
+                                  </a>
+                                  <div class="people-you-might-know dropdown" name="notificationMenu"  id="ment_auth" style="color:black;">
+                                  <p>Ment Auth</p>
+
+                                      <!-- <div class="view-more-people">
+                                      <p class="view-more-text">
+                                        <a href="#" class="view-more-link">View More..</a>
+                                      </p>
+                                    </div>
+                                    </div>
+ -->
+                                  </div>
+                                </div></div>
+                      <!-- <div class="container"> -->
+
+          <!-- </div>
+ -->
+
+                                </div>
+                                <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+
+
+                                <script>
+                                //Open dropdown when clicking on element
+                                    $(document).on('click', "a[data-dropdown='notificationMenu']",  function(e){
+                                      e.preventDefault();
+
+                                      var el = $(e.currentTarget);
+
+                                      $('body').prepend('<div id="dropdownOverlay" style="background: transparent; height:100%;width:100%;position:fixed;"></div>')
+
+                                      var container = $(e.currentTarget).parent();
+                                      var dropdown = container.find('.dropdown');
+                                      var containerWidth = container.width();
+                                      var containerHeight = container.height();
+
+                                      var anchorOffset = $(e.currentTarget).offset();
+
+                                      dropdown.css({
+                                        'right': containerWidth / 2 + 'px'
+                                      })
+
+                                      container.toggleClass('expanded')
+
+                                    });
+
+                                    //Close dropdowns on document click
+
+                                    $(document).on('click', '#dropdownOverlay', function(e){
+                                      var el = $(e.currentTarget)[0].activeElement;
+
+                                      if(typeof $(el).attr('data-dropdown') === 'undefined'){
+                                        $('#dropdownOverlay').remove();
+                                        $('.dropdown-container.expanded').removeClass('expanded');
+                                      }
+                                    })
+
+
+                                    </script>
+<!--@@@@@@@@@@@@@@@@@@@@@ Notification start @@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+
+</div>
+
+<!--       <li><a><i style="font-size:27px;" class="material-icons">face</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">public</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">person</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">home</i></a></li> -->
+    <!-- </div> -->
+        <!-- navbar -->
+        <nav class="navbar">
+          <ul>
+            <li><a href="Final_Admin.html">Home</a></li>
+            <li><a href="pages-blank2.html">Forum</a></li>
+            <li><a href="SocialNetwork.html">Social</a></li>
+            <li><a href="#">Startups</a></li>
+          </ul>
+
+
+
+
+
+
+        </nav>
+        <!-- navbar -->
+
+
+    </main>
+    </center>
+
+        <br>
+
+
+
+
+
+                <div class="row" style="margin-right:10px">
+                    <!-- Column -->
+
+<div style="width:65%; margin-left: 20px;" >
+    <section class="wrapper" >
+        <ul class="tabs" style="color: blue;">
+            <li class="active">Mentors</li>
+            <li>Startups</li>
+        </ul>
+
+        <ul class="tab__content">
+          <li  class="active">
+                            <div class="content__wrapper">
+
+                    <div class="table-users">
+
+
+                        <table id="my" cellspacing="0">
+                            <col width="55%">
+<!--
+                           <tr>
+                              <td> <div class="tree">
+                                <ul>
+
+                                    <li>
+                                        <a href="#" id="c5"><img src="http://lorempixel.com/100/100/people/9" alt="" /></a>
+                                        <ul id="c6">
+                                            <li>
+                                                <a href="#">Startup 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Startup 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Startup 3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul></div></td>
+                                <td>
+                                <div style="border-radius: 10px;box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.05);background-color: #ffffff;height:100%">Mentor Name<br>Mentor Domain<br>XYZ</div>
+                            </td>
+
+                           </tr> -->
+
+
+
+                        </table>
+                     </div>
+
+                    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+
+            <li>
+                <div class="content__wrapper">
+                    <div class="table-users">
+
+
+                      <table cellspacing="0" id="startup_section">
+                            <col width="55%">
+<!--
+                           <tr>
+                              <td> <div class="tree">
+                                <ul>
+
+                                    <li>
+                                        <a href="#" id="c1"><img src="http://lorempixel.com/100/100/people/9" alt="" /></a>
+                                        <ul id="c2">
+                                            <li>
+                                                <a href="#">Startup 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Startup 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Startup 3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul></div></td>
+                                <td>
+                                <div style="border-radius: 10px;box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.05);background-color: #ffffff;height:100%">Mentor Name<br>Mentor Domain<br>XYZ</div>
+                            </td>
+
+                           </tr>
+-->
+                        </table>
+                     </div>
+                    .
+                    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+                </div>
+                <script>
+
+                $('#c1').click(function() {
+                  $('#c2').slideToggle();
+                });
+                $('#c3').click(function() {
+                  $('#c4').slideToggle();
+                });
+                $('#c5').click(function() {
+                  $('#c6').slideToggle();
+                });
+                    </script>
+            </li>
+            </div>
+            </li>
+
+        </ul>
+    </section>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script>
+
+    $(document).ready(function(){
+
+	// Variables
+	var clickedTab = $(".tabs > .active");
+	var tabWrapper = $(".tab__content");
+	var activeTab = tabWrapper.find(".active");
+	var activeTabHeight = activeTab.outerHeight();
+
+	// Show tab on page load
+	activeTab.show();
+
+	// Set height of wrapper on page load
+	tabWrapper.height(activeTabHeight);
+
+	$(".tabs > li").on("click", function() {
+
+		// Remove class from active tab
+		$(".tabs > li").removeClass("active");
+
+		// Add class active to clicked tab
+		$(this).addClass("active");
+
+		// Update clickedTab variable
+		clickedTab = $(".tabs .active");
+
+		// fade out active tab
+		activeTab.fadeOut(250, function() {
+
+			// Remove active class all tabs
+			$(".tab__content > li").removeClass("active");
+
+			// Get index of clicked tab
+			var clickedTabIndex = clickedTab.index();
+
+			// Add class active to corresponding tab
+			$(".tab__content > li").eq(clickedTabIndex).addClass("active");
+
+			// update new active tab
+			activeTab = $(".tab__content > .active");
+
+			// Update variable
+			activeTabHeight = activeTab.outerHeight();
+
+			// Animate height of wrapper to new tab height
+			tabWrapper.stop().delay(50).animate({
+				height: activeTabHeight
+			}, 500, function() {
+
+				// Fade in active tab
+				activeTab.delay(50).fadeIn(250);
+
+			});
+		});
+	});
+
+	// Variables
+	var colorButton = $(".colors li");
+
+	colorButton.on("click", function(){
+
+		// Remove class from currently active button
+		$(".colors > li").removeClass("active-color");
+
+		// Add class active to clicked button
+		$(this).addClass("active-color");
+
+		// Get background color of clicked
+		var newColor = $(this).attr("data-color");
+
+		// Change background of everything with class .bg-color
+		$(".bg-color").css("background-color", newColor);
+
+		// Change color of everything with class .text-color
+		$(".text-color").css("color", newColor);
+	});
+});
+
+    </script>
+  <!-- <div class="row" style="margin-right:10px;margin-left:10px;padding-right:0px;"> -->
+
+
+                </div>
+                <!-- Row -->
+
+                    <!-- Column -->
+                   <div style="width:30%;margin-right:auto;padding-left:10px;float:right;margin-left:10px;" >
+                   <div class="card">
+                    <div class="column" >
+                            <div class="card-block bg-info">
+                                <h4 class="text-white card-title">My Contacts</h4>
+                                <h6 class="card-subtitle text-white m-b-0 op-5">Checkout my contacts here</h6>
+                            </div>
+                            <div class="card-block">
+                                <div class="message-box contact-box">
+                                    <h2 class="add-ct-btn"><button type="button" class="btn btn-circle btn-lg btn-success waves-effect waves-dark">+</button></h2>
+                                    <div id="chat_list" class="message-widget contact-widget">
+                                        <!-- Message -->
+                                        <!-- <a href="#">
+                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="mail-contnet">
+                                                <h5>Pavan kumar</h5> <span class="mail-desc">info@wrappixel.com</span></div>
+                                                <button href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" >Request</button>
+                                        <button href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" >Request</button>
+                                        </a> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div></div></div>
+
+        </div>
+
+    </div>
+
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!-- chartist chart -->
+    <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="../assets/plugins/d3/d3.min.js"></script>
+    <script src="../assets/plugins/c3-master/c3.min.js"></script>
+    <!-- Chart JS -->
+    <script src="js/dashboard1.js"></script>
+    <script src="admin.js"></script>
+    <script>
+
+
+
+            var admin_id = "38l08HvGr4hUutPUQNe1Sx1cITp2";
+            var mentor_data_list = [];
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+            root.child("Admin_mentor_structure").child(admin_id).child("mentor_requests")
+            .on("value",function(snapshot){
+                var admin_data = snapshot.val();
+                //console.log(admin_data);
+                for(mentor in admin_data){
+// change Granted to requested
+
+                    if(admin_data[mentor]=="Requested"){
+                        //console.log("status = ",admin_data[mentor]);
+                        get_mentor_data(mentor,admin_data[mentor]);
+
+                    }
+                }
+            });
+
+            function get_mentor_data(mentor,status){
+                //console.log(mentor);
+                //var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                var mentor_data;
+                var visibility;
+                var mentor_data_list=[];
+
+                root.child("Users").child(mentor)
+                .on("value",function(snap){
+                    mentor_data = snap.val();
+                    console.log("mentordata",mentor_data);
+                    mentor_data_list.push({
+                        "mentor":mentor_data,
+                        "name":mentor_data["name"],
+                        "location":mentor_data["location"],
+                        "status":status
+                    });
+                    console.log(mentor_data_list);
+                    document.getElementById("ment_auth").innerHTML+=` <div class="row add-people-section">
+                                  <div class="small-12 medium-6 columns about-people">
+                                    <div class="about-people-avatar">
+                                      <img class="avatar-image" src="https://i.imgur.com/UPVxPjb.jpg" alt="Kishore Kumar">
+                                    </div>
+                                    <div class="about-people-author">
+                                      <p class="author-name" id="Name">
+                                        `+mentor_data["name"]+`
+                                      </p>
+                                      <p class="author-location" id="Loc">
+                                        <i class="fa fa-map-marker" aria-hidden="true" ></i>
+                                        `+mentor_data["location"]+`
+                                      </p>
+                                      <p class="author-mutual">
+                                        <strong>Shahrukh Khan</strong> is a mutual friend.
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="small-12 medium-6 columns add-friend">
+                                    <div class="add-friend-action">
+                                      <button id="`+mentor+`"class="button primary small" onclick="grant_access(this)">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                        Authorized
+                                      </button>
+                                      <button class="button secondary small">
+                                        <i class="fa fa-user-times" aria-hidden="true"></i>
+                                        Deny
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>`
+                      //load_mentor_notifications();
+                    });
+                    if(status=="requested"){
+                        //visibility="";
+                        //document.getElementById("mentor_auth").innerHTML=mentor;
+
+                    }
+                    else{
+                        //visibility="";
+                    }
+
+                    // document.getElementById("container").innerHTML+=`<br>
+                    // <div style="width:40;height:40">
+                    //     <h4>mentor</h4>
+                    //     <button id="`+mentor+`" onclick="grant_access(this)">`+status+`</button>
+                    // </div>`
+
+
+            }
+
+
+            function grant_access(mentor_id){
+
+                var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                mentor_id = $(mentor_id).attr("id");
+                console.log(mentor_id);
+                root.child("Admin_mentor_structure").child(admin_id).child("mentor_requests").child(mentor_id).set("Granted");
+                root.child("notifications").child(admin_id).child(mentor_id).set("Not Received");
+
+            }
+
+
+        //     function request_rejected(reference){
+
+        //     var startup_id = $(reference).attr("name");
+        //     var mentor_id = $(reference).attr("id");
+        //     var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+
+        //     root.child("Users").child(startup_id).child("Mentor").child(mentor_id).set(null);
+
+        //     root.child("Admin_mentor_structure").child(admin_id).child("startup_requests").child(startup_id).child(mentor_id).set(null);
+
+
+        // }
+
+
+            // setTimeout(function(){ console.log(mentor_data_list); }, 5000);
+
+
+          // -------------Request for Startups--
+
+
+      // function mentor_list(mentor_id){
+
+      //       var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+      //       var mentor_data;
+      //       console.log(mentor_id);
+      //       //var mentor_data_list=[];
+      //       root.child("Users").child(mentor_id)
+      //           .once("value",function(snap){
+      //               mentor_data = snap.val();
+      //               console.log(mentor_data["name"]);
+      //                return mentor_data["name"]
+      //             });
+      // }
+
+      // function startup_list(strt_id){
+      //   var startup_data_list=[];
+      //   var startup_data;
+      //   var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+
+      //    root.child("Users").child(strt_id)
+      //           .once("value",function(snap){
+      //               startup_data = snap.val();
+      //                console.log(startup_data["name"]);
+      //                var n=startup_data["name"];
+
+      //               return (n);
+      //   });
+      // }
+
+          var names_list=[];
+          function get_name_from_id(id){
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+            root.child("Users").child(id).once("value",function(snap){
+              var user_data = snap.val();
+              console.log(user_data["name"]);
+              names_list.push(user_data["name"]);
+            });
+
+          }
+
+
+
+
+          function  get_mentor_data_strtup(mentor_id, status,strt_id){
+
+
+              get_name_from_id(strt_id);
+              get_name_from_id(mentor_id);
+
+              setTimeout(function(){
+                startup_name = names_list[0];
+                mentor_name = names_list[1];
+                console.log(startup_name);
+                console.log(mentor_name);
+                console.log(names_list);
+                var reference=strt_id+'_'+mentor_id;
+                load_notifications(startup_name,mentor_name,reference);
+              },3000);
+
+        }
+
+        function Signout(){
+          console.log("here");
+      firebase.auth().signOut();
+      sinchClient.terminate();
+
+    	delete localStorage[sessionName];
+    	window.location.reload();
+      console.log("Logout Successful");
+      window.location.href="login_Startup.html"
+    }
+
+        function load_notifications(startup_name,mentor_name,reference){
+
+          document.getElementById("start_req").innerHTML+=`<div class="row add-people-section">
+                                      <div class="small-12 medium-6 columns about-people">
+                                        <div class="about-people-avatar">
+                                          <img class="avatar-image" src="https://i.imgur.com/UPVxPjb.jpg" alt="Kishore Kumar">
+                                        </div>
+                                        <div class="about-people-author">
+                                          <p class="author-name">
+                                            `+startup_name+`
+                                          </p>
+                                          <p class="author-location">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            `+mentor_name+`
+                                          </p>
+                                          <p class="author-mutual">
+                                            <strong>Shahrukh Khan</strong> is a mutual friend.
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div class="small-12 medium-6 columns add-friend" >
+                                        <div class="add-friend-action">
+                                          <button class="button primary small" id="`+reference+`" onclick="grant(this)">
+                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                            Grant Acess
+                                          </button>
+                                          <button class="button secondary small"id="`+reference+`" onclick="request_rejected(this)">
+                                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                                            Deny
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>`
+
+
+
+        }
+
+        function request_rejected(reference){
+          var l= $(reference).attr("id").split('_');
+                console.log("Rejecting L",l);
+                var startup_id=l[0];
+                var mentor_id = l[1];
+
+            // var startup_id = $(reference).attr("name");
+            // var mentor_id = $(reference).attr("id");
+
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+
+            root.child("Users").child(startup_id).child("Mentors").child(mentor_id).set(null);
+
+            root.child("Admin_mentor_structure").child(admin_id).child("startup_requests").child(startup_id).child(mentor_id).set(null);
+
+
+        }
+
+        function get_request_for_mentors(){
+
+
+          // var ment_id = "h9m5EnsIMRaZrdSPPnPMpkkvQ4v2";
+          //   var my_id = "JWlf1N4a8JXIq4Ik4liR7BtbFTY2";
+            var admin_id = "38l08HvGr4hUutPUQNe1Sx1cITp2";
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+            var temp =[];
+            var  mentor_id_list=[];
+            var  status_list=[];
+
+
+
+            root.child("Admin_mentor_structure").child(admin_id).child("startup_requests")
+            .on("value",function(snapshot){
+                var requests = snapshot.val();
+                console.log("Req",requests);
+                for(r in requests){
+                   var strt_id=r;
+                   temp.push(r);
+                 }
+                  console.log("temp",temp);
+                  for(u in temp){
+
+                    console.log(temp[u]);//stratupid
+                    for(mentor_id in requests[temp[u]]){
+                      console.log(requests[temp[u]]);
+                      console.log(requests[temp[u]][mentor_id]); //status
+                      console.log("Display");//mentor_id
+
+                      if(requests[temp[u]][mentor_id]=="Requested"){
+                        console.log("iterating");
+                        get_mentor_data_strtup(mentor_id,requests[temp[u]][mentor_id],temp[u]);
+                        //alert(mentor_id,requests[temp[u]][startup_id],temp[u]);
+                      }
+                    }
+                  }
+
+
+               });
+
+          }
+
+
+          function grant(reference){
+                var l= $(reference).attr("id").split('_');
+                console.log("dsiplay L",l);
+                var strt_id=l[0];
+                var mentor_id = l[1];
+                var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                //mentor_id = $(mentor_id).attr("id");
+                root.child("Admin_mentor_structure").child(admin_id).child("startup_requests").child(strt_id).child(mentor_id).set("Granted");
+
+                 var t =root.child("Users").child(strt_id).child("Mentors").push(mentor_id);
+                 t.push({
+                  "status":"Granted"
+               });
+
+                 var y =root.child("Users").child(mentor_id).child("startups").push(strt_id);
+                 y.push({
+                  "status":"Granted"
+               });
+
+
+                  root.child("notifications").child(strt_id).child(mentor_id).set("Received");
+                  root.child("notifications").child(mentor_id).child(strt_id).set("Received");
+
+            }
+
+              get_request_for_mentors();
+
+
+var mentors={};
+    var ret_mentor_list=[];
+    var ret_mentor_keys = [];
+    var my_mentors_list = [];
+    setTimeout(function(){load_admin_chats();},5000);
+
+    function get_my_mentors_for_chats(){
+      console.log(my_mentors_list);
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+        var second = my_mentors_list.slice();
+        for(z in my_mentors_list){
+          console.log(my_mentors_list[z]);
+          console.log(z);
+            root.child("Users").child(my_mentors_list[z]).on("value",function(m){
+
+                console.log(z);
+                console.log(second[z]);
+                var n = m.val();
+                console.log(m.val());
+                console.log(my_mentors_list[z]);
+                console.log(n);
+                var chat_list = document.getElementById("chat_list");
+                //console.log("chatlist = ",chat_list);
+
+                chat_list.innerHTML+=`<a href="#">
+                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="mail-contnet">
+                                                <h5>`+n["name"]+`</h5> <span class="mail-desc">info@wrappixel.com</span></div>
+                                                <button type="button" id="`+my_mentors_list[z]+`_`+z+`" href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" onclick="openchat(this)">Chat</button>
+                                        <button href="javascript:void(0)" id="`+my_mentors_list[z]+`" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" onclick=start_video_call();>Video</button>
+                                        </a>`;
+                console.log(second);
+                console.log("n = ",n["name"]);
+
+            });
+        }
+
+    }
+
+
+    function start_video_call(ref){
+      console.log("Function called");
+
+      call($(ref).attr("id"));
+    }
+
+  function min(something){
+    console.log("Minimize called");
+    var ref = something;
+    var id = $(something).attr("name").split('_')[0];
+    var shiftleft = $(something).attr('name').split('_')[1];
+    // id="open-chat"
+    console.log("name = ",ref);
+    console.log("id = ",id);
+    try{
+    var elem = document.getElementById($(something).attr("name"));
+    elem.parentNode.removeChild(elem);
+    }
+    catch(error){
+
+    }
+    document.body.innerHTML+=`<button class="open-button" id="`+id+`_`+shiftleft+`"  onclick="open_chat_from(this)">Chat<span><i class="material-icons" style="font-size: 15px;float:right;" name="`+id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</i></span></button>`;
+    document.getElementById('messenger').style.display="none";
+    // document.getElementById('open-chat').style.display="block";
+  }
+
+
+  function clos(something){
+
+    console.log("clos() called")
+    var ref = something;
+    console.log("ref = ",ref);
+    console.log($(something).attr("name"));
+    var id = $(something).attr("name").split('_')[0];
+    var shiftleft = $(something).attr('name').split('_')[1];
+
+    document.getElementById('messenger').style.display="none";
+    document.getElementById('messenger').innerHTML="";
+    document.getElementById($(something).attr('name')).style.display="none";
+  }
+
+    var count = 0;
+
+    function openchat(n){
+
+
+      console.log("openchat called");
+
+      console.log("ret n = ",$(n).attr('id'));
+      var opp_id = $(n).attr('id').split("_")[0];
+      var count = $(n).attr('id').split("_")[1];
+      document.getElementById("messenger").style.display="block";
+      //document.getElementById("livechat").style.display="block";
+      //document.getElementById(opp_id).style.display="none";
+      console.log("Dread it");
+      var chat = document.getElementById('messenger');
+      var shiftleft= count*303+ 3;
+      chat.innerHTML+= `
+
+          <section class="avenue-messenger" style="display:block;margin-right:`+shiftleft+`px;">
+                  <div class="menu">
+                   <div class="items"><span>
+                     <a href="#" title="Minimize">&mdash;</a><br>
+
+                     <a href="#" title="End Chat">&#10005;</a>
+
+                     </span></div>
+                        <div  ><button name="`+opp_id+`_`+shiftleft+`" id="min" onclick="min(this)">...</button</div>
+                        <div ><button name="`+opp_id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</button></div>
+                  </div>
+                  <div class="agent-face">
+                    <div class="half">
+                     <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino"></div>
+                  </div>
+                <div class="chat">
+                  <div class="chat-title">
+                    <h1>Jesse Tino</h1>
+                    <h2>RE/MAX</h2>
+                  </div>
+                  <div class="messages">
+                    <div id="messages-content" class="messages-content" style="overflow:scroll">
+                        `+retrieve_chat(opp_id)+`
+
+                    </div>
+                  </div>
+                  <div class="message-box">
+                      <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button id="`+opp_id+`" type="button" onclick="do_chat(this)" class="message-submit">Send<button>
+
+                  </div>
+                </div>
+    `
+      // count++;class="message-submit"
+      // <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+      //             <button onclick="load_msg()" type="button" class="message-submit">Send</button>
+      // alert(count);
+      // called();
+      count++;
+  }
+
+function open_chat_from(n){
+
+      console.log("open_chat_from called");
+      console.log("ret n = ",$(n).attr('id'));
+      var opp_id = $(n).attr('id').split("_")[0];
+      var shiftleft = $(n).attr('id').split("_")[1];
+      //document.getElementById("livechat").style.display="block";
+      document.getElementById(opp_id).style.display="none";
+      console.log("Dread it");
+      var chat = document.getElementById('messenger');
+      // var shiftleft= count*303+ 3;
+      document.getElementById($(n).attr('id')).style.display="none";
+      chat.style.display="block";
+      chat.innerHTML="";
+      chat.innerHTML+= `
+
+          <section class="avenue-messenger" style="display:block;margin-right:`+shiftleft+`px;">
+                  <div class="menu">
+                   <div class="items"><span>
+                     <a href="#" title="Minimize">&mdash;</a><br>
+
+                     <a href="#" title="End Chat">&#10005;</a>
+
+                     </span></div>
+                        <div  ><button name="`+opp_id+`_`+shiftleft+`" id="min" onclick="min(this)">...</button</div>
+                        <div ><button name="`+opp_id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</button></div>
+                  </div>
+                  <div class="agent-face">
+                    <div class="half">
+                     <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino"></div>
+                  </div>
+                <div class="chat">
+                  <div class="chat-title">
+                    <h1>Jesse Tino</h1>
+                    <h2>RE/MAX</h2>
+                  </div>
+                  <div class="messages">
+                    <div id="messages-content" class="messages-content" style="overflow:scroll">
+                        `+retrieve_chat(opp_id)+`
+
+                    </div>
+                  </div>
+                  <div class="message-box">
+                  <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button id="`+opp_id+`" type="button" onclick="do_chat(this)" >Send<button>
+                  </div>
+                </div>`
+      // count++;class="message-submit"
+      //style="z-index:1;top:9;right:10"
+      // alert(count);
+      // called();
+      // count++;
+}
+
+  function retrieve_chat(to_id){
+
+        var individual_msg_list=[];
+        var new_individual_msg_list=[];
+        var msg_timestamp_list=[];
+        var original_msg_timestamp_list=[];
+        var single_msg = "hello";
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+        root.child("Users").child(my_id).child("Chat").child(to_id)
+        .on("value",function(snapshot){
+        var data = snapshot.val();
+
+        for(d in data){
+            //console.log(data[d]);
+            individual_msg_list.push(data[d]);
+            new_individual_msg_list.push(data[d]);
+            msg_timestamp_list.push(parseInt(data[d]["timestamp"]))
+            // document.body.innerHTML+="message = "+data[d]["message"]+"   type = "+data[d]["type"]+"<br>";
+            //console.log("message = ",data[d]["message"])
+            //console.log("type = ",data[d]["type"])
+        }
+
+        original_msg_timestamp_list = msg_timestamp_list.slice();
+        msg_timestamp_list =  msg_timestamp_list.sort(function(a,b){return a-b});
+
+        //console.log("individual_msg_list",individual_msg_list);
+        for(var a=0;a<msg_timestamp_list.length;a++){
+            //console.log("a = ",a);
+            //console.log("msg_timestamp_list[a]",msg_timestamp_list[a]);
+            for(var b=0;b<original_msg_timestamp_list.length;b++){
+
+                //console.log("b = ",b);
+                //console.log("msg_timestamp_list[b]",msg_timestamp_list[b]);
+                if(msg_timestamp_list[a]==original_msg_timestamp_list[b]){
+                    new_individual_msg_list[a]=individual_msg_list[b];
+                }
+            }
+        }
+
+        console.log(new_individual_msg_list);
+        for(var c=0;c<new_individual_msg_list.length;c++){
+            console.log(new_individual_msg_list[c]);
+            if(new_individual_msg_list[c]["type"]=="to"){
+            single_msg+=`<div id="chat_box"><p style="padding-left:30%;">`+new_individual_msg_list[c]["message"]+`</p></div>`;
+            }
+            else{
+             single_msg+=`<div id="chat_box"><p>`+new_individual_msg_list[c]["message"]+`</p></div>`;
+            }
+        }
+
+        });
+        return single_msg;
+}
+
+  function do_chat(to_id){
+
+        var to_id = $(to_id).attr("id");
+
+        var new_msg = document.getElementById("message_to_send").value;
+        console.log(new_msg);
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+        root.child("Users").child(my_id).child("Chat").child(to_id).push().set({
+            "message":new_msg,
+            "type":"to",
+            "delivered":"true"
+        });
+
+
+        root.child("Users").child(to_id).child("Chat").child(my_id).push().set({
+            "message":new_msg,
+            "type":"from",
+            "delivered":"true"
+        });
+
+        var load = document.getElementById("messages-content");
+        load.innerHTML+=`<div id="chat_box"><p style="padding-left:50%;">`+new_msg+`</p></div>`;
+
+
+    }
+
+    function load_chats(){
+        console.log("function load_chats()")
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+        root.child("Users").child(my_id).child("Mentors").on("value",function(snap){
+            var val = snap.val();
+            console.log(val);
+            for(v in val){
+                if(val[v]=="Granted"){
+                    console.log(v);
+                    my_mentors_list.push(v);
+
+                }
+            }
+            get_my_mentors_for_chats();
+        });
+
+
+    }
+
+    function load_admin_chats(){
+      console.log("load_admin_chats called");
+      var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+      root.child("Admin_mentor_structure").child(my_id).once("value",function(admin_data){
+        var data = admin_data.val();
+
+        for(d in data){
+          console.log(data[d]);
+          if(d=="mentor_requests"){
+            for(z in data[d]){
+              if(data[d][z]=="Granted"){
+                console.log("z = ",z);
+                my_mentors_list.push(z);
+              }
+            }
+          }
+          else if(d=="startup_requests"){
+            for(z in data[d]){
+              console.log(z);
+              console.log("++");
+              for(y in data[d][z]){
+                console.log(data[d][z]);
+                console.log("**");
+                if(data[d][z][y]=="Granted"){
+                  console.log("z = ",z);
+                  my_mentors_list.push(z);
+                  console.log("--");
+                }
+              }
+            }
+          }
+
+        }
+        console.log("exiting loop");
+        console.log(my_mentors_list);
+        get_my_mentors_for_chats();
+      });
+    }
+
+
+    </script>
+</body>
+
+</html>

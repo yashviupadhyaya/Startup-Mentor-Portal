@@ -1,0 +1,2639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>SIH</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- chartist CSS -->
+    <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="../assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!--This page css - Morris CSS -->
+    <link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+    <link rel="stylesheet" href="css/1.css">
+
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script  src="chat_js/index.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+
+      <link rel="stylesheet" href="css/chat_style.css">
+
+    <!--Firebase CDN's-->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <!--End of firebase-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+        authDomain: "endgame-ad6a9.firebaseapp.com",
+        databaseURL: "https://endgame-ad6a9.firebaseio.com",
+        projectId: "endgame-ad6a9",
+        storageBucket: "endgame-ad6a9.appspot.com",
+        messagingSenderId: "570139431068"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script src="sinch.min.js"></script>
+    <script src="video_calling1.js"></script>
+<link rel="stylesheet" href="css/navbar.css">
+<style>
+img_icon{
+  border-radius: 50%;
+}
+</style>
+<style>
+
+.modal-body{
+    height: 500px;
+    width: 200px;
+}
+
+.modal-header{
+    border-radius: 5px 5px 0px 0px;
+}
+
+
+
+#top{
+    background-color:  #1e88e5;
+    border-radius: 5px 5px 0px 0px;
+ }
+
+/*-------------Live Chat----------*/
+@mixin center {
+  position: relative;
+/*  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);*/
+}
+
+@mixin ball {
+  @include center;
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+/*  background: rgba(255, 255, 255, .5);*/
+  background:#888;
+  z-index: 2;
+  margin-top: 4px;
+  animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
+}
+
+
+/*--------------------
+Body
+--------------------*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+ background: linear-gradient(135deg, #044f48, #345093);
+  background-size: cover;
+background:#fff;
+  font-family: 'Avenir', 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  overflow: hidden;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  /* background: url('https://images.unsplash.com/photo-1451186859696-371d9477be93?crop=entropy&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925') no-repeat 0 0;*/
+  filter: blur(80px);
+  transform: scale(1.2);
+ background: #fff;
+}
+
+
+/*--------------------
+Chat
+--------------------*/
+
+.chat {
+  @include center;
+  width: 100%;
+  height: calc(100% - 15px);
+  max-height: 500px;
+  z-index: 10;
+  overflow: hidden;
+  /*box-shadow: 0 5px 30px rgba(0, 0, 0, .2);*/
+  /* background: rgba(0, 0, 0, .5);*/
+  background: transparent;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+
+/*--------------------
+Chat Title
+--------------------*/
+
+.chat-title {
+  flex: 0 1 45px;
+  position: relative;
+  z-index: 2;
+  width:100%;
+  border-bottom:1px solid #ccc;
+  color: #777;
+  padding-top:50px;
+  padding-bottom:5px;
+  background-color:#fff;
+  text-transform: uppercase;
+  text-align: center;
+
+  h1,
+  h2 {
+    font-weight: normal;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+
+  }
+  h2 {
+    /* color: rgba(255, 255, 255, .8);*/
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  .avatar {
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    left: 9px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
+/*--------------------
+Messages
+--------------------*/
+
+.messages {
+  flex: 1 1 auto;
+  /*  color: rgba(255, 255, 255, .5);
+  color: #fff;*/
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  & .messages-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 101%;
+    width: 100%;
+  }
+  .message {
+    clear: both;
+    float: left;
+    padding: 6px 10px 7px;
+    -webkit-border-radius: 20px 20px 20px 0;
+    -moz-border-radius: 20px 20px 20px 0;
+    border-radius: 20px 20px 20px 0;
+    background: #eee; /*rgba(0, 0, 0, 0.1);*/
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-left: 35px;
+    position: relative;
+    border:1px solid #ccc;
+    /*text-shadow: 0 1px 1px rgba(0, 0, 0, .2);*/
+    .timestamp {
+      position: absolute;
+      bottom: -15px;
+      font-size: 10px;
+      color: #555;
+       right:30px;
+      /* color: rgba(255, 255, 255, .7);*/
+
+    }
+    .checkmark-sent-delivered {
+      position: absolute;
+      bottom: -15px;
+     right: 10px;
+      font-size:12px;
+      color:#999;
+    }
+    .checkmark-read {
+      color:blue;
+       position: absolute;
+      bottom: -15px;
+     right: 16px;
+      font-size:12px;
+    }
+    &::before {
+    /*  content: '';
+      position: absolute;
+      bottom: -6px;
+      border-top: 6px solid rgba(0, 0, 0, 0.1);
+      left: 0;
+      border-right: 7px solid transparent;*/
+    }
+
+    .avatar {
+      position: absolute;
+      z-index: 1;
+      bottom: -15px;
+      left: -35px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      border-radius: 30px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    &.message-personal {
+      float: right;
+      text-align: right;
+/*      background: linear-gradient(120deg, #ddd, #eee);*/
+      background:#fff;
+      border:1px solid #ccc /*#4A90E2*/;
+      -webkit-border-radius: 20px 20px 0 20px;
+      -moz-border-radius: 20px 20px 0 20px;
+      border-radius: 20px 20px 0 20px;
+
+      &::before {
+
+      /*
+          content:"";
+      border-color:#4A90E2 transparent;
+        width:0;
+        border-style:solid;*/
+        /*
+        left: auto;
+        right: 0;
+        border-right: none;
+       border-left: 8px solid transparent;
+        border-top: 9px solid #fff;
+
+        bottom: -8px;*/
+      }
+
+    }
+    &:last-child {
+      margin-bottom: 30px;
+    }
+    &.new {
+      transform: scale(0);
+      transform-origin: 0 0;
+      animation: bounce 500ms linear both;
+    }
+    &.loading {
+      &::before {
+        @include ball;
+        border: none;
+        animation-delay: .15s;
+      }
+      & span {
+        display: block;
+        font-size: 0;
+        width: 20px;
+        height: 10px;
+        position: relative;
+        &::before {
+          @include ball;
+          margin-left: -7px;
+        }
+        &::after {
+          @include ball;
+          margin-left: 7px;
+          animation-delay: .3s;
+        }
+      }
+    }
+  }
+}
+
+
+/*--------------------
+Message Box
+--------------------*/
+
+.message-box {
+  flex: 0 1 42px;
+  width: 90%;
+  background: #fff;
+  margin:2px auto;
+/*-webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
+-moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);
+box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.4);*/
+  /*background: rgba(0, 0, 0, 0.3);
+    border-top:1px solid #e3e3e3;*/
+  padding: 10px;
+  position: relative;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  height:14px;
+  border:1px solid #ccc;
+
+  & .message-input {
+    background: none;
+    border: none;
+    outline: none!important;
+    resize: none;
+    /* color: rgba(255, 255, 255, .8);*/
+    font-size: 15px;
+    height: 24px;
+    margin: 0;
+    padding-right: 20px;
+    width: 265px;
+    color: #444;
+  }
+  textarea:focus:-webkit-placeholder {
+    color: transparent;
+  }
+  & .message-submit {
+    position: absolute;
+    z-index: 1;
+    top: 9px;
+    right: 10px;
+    color: #4A90E2;
+    border: none;
+   /* background: #c29d5f;*/
+    background: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 5px;
+    outline: none!important;
+    transition: background .2s ease;
+    cursor:pointer;
+    &:hover {
+      background: #fff;
+      color: #333;
+    }
+  }
+}
+
+
+/*--------------------
+Custom Srollbar
+--------------------*/
+
+.mCSB_scrollTools {
+  margin: 1px -3px 1px 0;
+  opacity: 0;
+}
+
+.mCSB_inside > .mCSB_container {
+  margin-right: 0px;
+  padding: 0 10px;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.5)!important;
+}
+
+
+/*--------------------
+Bounce
+--------------------*/
+
+@keyframes bounce {
+  0% {
+    transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  4.7% {
+    transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  9.41% {
+    transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  14.11% {
+    transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  18.72% {
+    transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  24.32% {
+    transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  29.93% {
+    transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  35.54% {
+    transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  41.04% {
+    transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  52.15% {
+    transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  63.26% {
+    transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  85.49% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+}
+
+@keyframes ball {
+  from {
+    transform: translateY(0) scaleY(.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+
+.avenue-messenger {
+    opacity: 1;
+    -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+    height: calc(100% - 60px)!important;
+  max-height:460px!important;
+  min-height:220px!important;
+    width: 300px;
+  /*  transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+  */
+    background: rgba(255, 255, 255, 0.9);
+      position: fixed;
+  right: 20px;
+    bottom: 20px;
+    margin: auto;
+    z-index: 10;
+    box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+  /*  transform: translateX(300px);*/
+    -webkit-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
+    -moz-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
+
+}
+
+.avenue-messenger div.agent-face {
+    position: absolute;
+    left: 0;
+    top: -50px;
+    right: 0;
+    margin: auto;
+    width: 101px;
+    height: 50px;
+    background: transparent;
+  z-index:12;
+
+
+}
+
+
+.avenue-messenger div {
+    font-size: 14px;
+    color:#232323;
+}
+
+#chat_box{
+
+border:2px;
+padding:10px;
+word-wrap: break-word;
+
+}
+.close {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em; opacity: 0.5;
+  /*border: 1px solid #ccc;
+  color:#ccc;*/
+/* -webkit-box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.5);
+-moz-box-shadow:    0px -1px 2px 0px rgba(0, 0, 0, 0.5);
+box-shadow:         0px -1px 2px 0px rgba(0, 0, 0, 0.5);*/
+}
+.close:hover {/*
+-webkit-box-shadow:  0 1px 1px rgba(0,0,0,0.3);
+-moz-box-shadow:  0 1px 1px rgba(0,0,0,0.3);
+box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
+  opacity:0.9;
+}
+
+.circle {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 2px solid #fff; /*#4A90E2;*/
+ /* -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
+
+}
+
+.contact-icon .circle:hover{
+ box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  transition:0.2s all ease-out 0.2s;
+  -webkit-transition:0.2s all ease-out 0.2s;
+  -moz-transition:0.2s all ease-out 0.2s;
+}
+
+
+.arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: #fff;
+    border-width: 5px;
+    margin-top: -5px;
+}
+.arrow_box {
+    position: relative;
+    background: #fff;
+    border: 1px solid #4A90E2;
+}
+.arrow_box:after, .arrow_box:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+
+.menu div.items {
+/*  height: 140px;
+  width: 180px;
+  overflow: hidden;
+  position: absolute;
+  left: -130px;
+  z-index: 2;
+  top: 20px;*/
+}
+
+.menu .items span {
+    color: #111;
+  z-index:12;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+  top:40px;
+    height: 86px;
+    line-height: 40px;
+    background: #fff;
+    border-left:1px solid #ccc;
+  border-bottom:1px solid #ccc;
+  border-right:1px solid #ccc;
+    width: 48px;
+    opacity: 0;
+   border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+    transition: .3s all ease-in-out;
+    -webkit-transition: .3s all ease-in-out;
+    -moz-transition: .3s all ease-in-out;
+}
+
+.menu .button {
+    font-size: 30px;
+
+    z-index:12;
+    text-align: right;
+    color: #333;
+    content: "...";
+    display: block;
+    width: 48px;
+    line-height: 25px;
+    height: 40px;
+    border-top-right-radius: 20px;
+/*  border-top-left-radius:20px;*/
+    position: absolute;
+    right: 0;
+  padding-right:10px;
+  cursor: pointer;
+  transition: .3s all ease-in-out;
+  -webkit-transition: .3s all ease-in-out;
+  -moz-transition: .3s all ease-in-out;
+}
+.menu .button.active {background: #ccc;}
+/*
+.menu .button:hover .menu .items span {
+  display: block;
+  left: -2px;
+  opacity: 1;
+}*/
+
+.menu .items span.active {
+  opacity:1;
+  /*border-radius:10px;
+  height: 180px;
+  width: 400px;
+  transform:translateY(0);
+  -webkit-transform:translateY(0);
+  -moz-transform:translateY(0);*/
+}
+
+.menu .items a {color:#111; text-decoration:none;}
+.menu .items a:hover{color:#777}
+
+
+
+@media only screen and (max-device-width: 667px), screen and (max-width: 450px) {
+.avenue-messenger {
+    z-index: 2147483001!important;
+    width: 100%!important;
+    height: 100%!important;
+    max-height: none!important;
+    top: 0!important;
+    left: 0!important;
+    right: 0!important;
+    bottom: 0!important;
+  -webkit-border-radius: 0!important;
+-moz-border-radius: 0!important;
+border-radius: 0!important;
+  background:#fff;
+
+
+}
+  .avenue-messenger div.agent-face {
+    top:-10px!important;
+   /* left:initial !important;*/
+  }
+  .chat {-webkit-border-radius: 0!important;
+-moz-border-radius: 0!important;
+border-radius: 0!important;
+  max-height:initial!important;}
+
+  .chat-title {
+    padding:20px 20px 15px 10px!important;
+    text-align:left;
+
+  }
+  .circle {
+    width:80px;
+    height:80px;
+    border:1px solid #fff;
+  }
+  .menu .button {
+    border-top-right-radius:0;
+  }
+}
+
+@media only screen and (min-device-width: 667px) {
+div.half {
+
+  margin: auto;
+  width: 80px;
+    height: 40px;
+    background-color: #fff;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+
+    border-bottom: 0;
+  box-shadow:1px 4px 20px rgba(22,20,19,0.6);
+  -webkit-box-shadow:1px 4px 20px rgba(22,20,19,0.6) ;
+  -moz-box-shadow:1px 4px 20px rgba(22,20,19,0.6);
+}
+}
+/*--------------------------------*/
+
+
+
+.open-button {
+  z-index:2147483001!important;
+  background-color:  #5A5EB9;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  position: fixed;
+  bottom: 29px;
+  right: 253px;
+  width: 250px;
+  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+}
+/* Live Chat Ends */
+
+li {
+  list-style: none;
+ }
+ul
+{
+    padding-inline-start: 20px;
+}
+#new
+{
+    margin-left:30px;
+    margin-right:30px;
+}
+#new1
+{
+    margin-left:30px;
+    /*margin-right:30px;*/
+}
+
+.product-filters {
+
+  padding: 0.5rem 0rem;
+  background-color: #fefefe;
+  margin-top: 2.5rem;
+}
+
+.product-filters label {
+  color: #8a8a8a;
+}
+
+.product-filters .menu.nested {
+  margin-left: 0rem;
+  margin-bottom: 0.9rem;
+}
+
+.product-filters .menu > li > a {
+
+  padding-left:0rem;
+  color: #4a4a4a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: none;
+}
+
+.product-filters .is-accordion-submenu-parent > a::after {
+  border-color: #cacaca transparent transparent;
+}
+
+.product-filters .clear-all {
+  font-size: 0.9rem;
+  color: #cacaca;
+}
+
+.product-filters .more {
+  color: #1779ba;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.product-filters-header {
+  font-size: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.product-filters-tab {
+
+  border-top: 1px solid #e6e6e6;
+}
+
+.product-filters-tab:last-child() {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.mobile-product-filters {
+  list-style: none;
+  border-bottom: 1px solid #e6e6e6;
+}
+.messages-content::-webkit-scrollbar { width: 0 !important }
+.column{
+    margin:0% 1% 1% 1%;
+      float: left;
+/*  width: 25%;
+*/  padding: 0 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row{
+    justify-content: center;
+    margin: 0 -5px;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    /*width: 100%;*/
+    display: block;
+    /*margin-bottom: 20px;*/
+  }
+}
+</style>
+
+<style type="text/css">
+/* Page Styles */
+
+.container {
+    /*position: absolute;*/
+    top: 50%;
+    left: 62%;
+    /*margin-right: -50%;*/
+    -webkit-transform: translate(-50%, -50%);
+    /*transform: translate(-50%, -50%);*/
+    /*text-align: center;*/
+}
+.dropdown-container1.expanded .dropdown1 {
+  -webkit-animation: fadein .5s;
+  -moz-animation: fadein .5s;
+  -ms-animation: fadein .5s;
+  -o-animation: fadein .5s;
+  animation: fadein .5s;
+  display: block;
+}
+.dropdown-container1 .dropdown1 {
+  -webkit-animation: fadeout .5s;
+  -moz-animation: fadeout .5s;
+  -ms-animation: fadeout .5s;
+  -o-animation: fadeout .5s;
+  animation: fadeout .5s;
+  display: none;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  max-height: 600px;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  margin-top: 3px;
+  margin-right: -15px;
+  border-top: 4px solid #1e88e5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -webkit-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  /*
+  &:before{
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+    top: -13px;
+    right: 7px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $secondary-color;
+  }
+  */
+}
+.dropdown-container1 .dropdown1 .notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab {
+  padding: 0px 25px;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover {
+  cursor: pointer;
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .fa, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover h4, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list {
+  padding: 0;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item {
+  padding: 5px 25px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .message {
+  margin: 5px 5px 10px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer {
+  color: #3f51b5;
+  text-decoration: none;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer .date {
+  float: right;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:nth-of-type(odd) {
+  background: #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:hover {
+  cursor: pointer;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab {
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .fa, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab h4, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-list {
+  height: 250px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa, .dropdown-container1 .dropdown1 .notification-group h4, .dropdown-container1 .dropdown1 .notification-group .label {
+  color: #333;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa {
+  margin-right: 5px;
+  margin-top: 25px;
+}
+.dropdown-container1 .dropdown1 .notification-group .label {
+  float: right;
+  margin-top: 20px;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 0px 7px;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 321px) {
+  .dropdown-container .dropdown1 .notification-group .notification-tab h4 {
+    display: none;
+  }
+  .dropdown-container .dropdown1 .notification-group .notification-tab:hover h4 {
+    display: none;
+  }
+ .dropdown-container .dropdown1 .notification-group.expanded .notification-tab h4 {
+    display: none;
+  }
+}
+@media only screen and (max-width: 514px) {
+  .dropdown-container .dropdown1 {
+    width: 100%;
+    margin: 0px;
+    left: 0;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+.people-you-might-know {
+  background-color: #fefefe;
+  padding: 1rem 0 0;
+  border: 1px solid #cacaca;
+  box-shadow: 0 0 3.125rem rgba(0, 0, 0, 0.18);
+}
+
+.people-you-might-know .add-people-header {
+  padding: 0 0.9375rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-header .header-title {
+  font-weight: bold;
+}
+
+.people-you-might-know .add-people-section {
+  margin: 1rem 0 0;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar {
+  padding-right: 0.5rem;
+  padding-left: 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-avatar .avatar-image {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.0625rem solid #cacaca;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author {
+  -webkit-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-name {
+  color: #0a0a0a;
+  margin: 0.375rem 0 0;
+}
+
+.people-you-might-know .add-people-section .about-people .about-people-author .author-location,
+.people-you-might-know .add-people-section .about-people .about-people-author .author-mutual {
+  color: #8a8a8a;
+  margin-bottom: 0;
+  font-size: 0.85em;
+}
+
+.people-you-might-know .add-people-section .add-friend {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .people-you-might-know .add-people-section .add-friend {
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+}
+
+.people-you-might-know .add-people-section .add-friend .add-friend-action {
+  margin-top: 0.7rem;
+}
+
+.people-you-might-know .view-more-people {
+  margin: .7rem 0;
+}
+
+.people-you-might-know .view-more-people .view-more-text {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link {
+  color: #1779ba;
+}
+
+.people-you-might-know .view-more-people .view-more-text .view-more-link:hover, .people-you-might-know .view-more-people .view-more-text .view-more-link:focus {
+  text-decoration: underline;
+}
+
+
+
+/* Notifications */
+
+.notification {
+    display: inline-block;
+    /*position: relative;*/
+    padding: 0.6em;
+    /*background: #3498db;*/
+    border-radius: 0.2em;
+    font-size: 1.3em;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+}
+
+.notification::before,
+.notification::after {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification::before {
+    display: block;
+    content: "\f0f3";
+    font-family: "FontAwesome";
+    transform-origin: top center;
+}
+
+.notification::after {
+    font-family: Arial;
+    font-size: 0.7em;
+    font-weight: 700;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 5px 8px;
+    line-height: 100%;
+    border: 2px #fff solid;
+    border-radius: 60px;
+    background: #3498db;
+    opacity: 0;
+    content: attr(data-count);
+    opacity: 0;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    transition: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.notification.notify::before {
+    -webkit-animation: ring 1.5s ease;
+    animation: ring 1.5s ease;
+}
+
+.notification.show-count::after {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+@-webkit-keyframes ring {
+    0% {
+        -webkit-transform: rotate(35deg);
+    }
+    12.5% {
+        -webkit-transform: rotate(-30deg);
+    }
+    25% {
+        -webkit-transform: rotate(25deg);
+    }
+    37.5% {
+        -webkit-transform: rotate(-20deg);
+    }
+    50% {
+        -webkit-transform: rotate(15deg);
+    }
+    62.5% {
+        -webkit-transform: rotate(-10deg);
+    }
+    75% {
+        -webkit-transform: rotate(5deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@keyframes ring {
+    0% {
+        -webkit-transform: rotate(35deg);
+        transform: rotate(35deg);
+    }
+    12.5% {
+        -webkit-transform: rotate(-30deg);
+        transform: rotate(-30deg);
+    }
+    25% {
+        -webkit-transform: rotate(25deg);
+        transform: rotate(25deg);
+    }
+    37.5% {
+        -webkit-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+    }
+    50% {
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg);
+    }
+    62.5% {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+    75% {
+        -webkit-transform: rotate(5deg);
+        transform: rotate(5deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+.m-red {background:#1e88e5; color:#fff; text-decoration:none;}
+
+.m-nav {width:100%; height:60px; display:inline-block; text-align:right;}
+
+.m-nav input[type="text"] {float:right; margin-right: 20px; background:rgba(255,255,255,0.3); border:none; padding:8px; outline:none; color:#fff; margin-top:10px;  font-family:"Roboto",Arial sans-serif; height:40px; display:inline-block; transition:0.5s ease all; width:20%;  border-radius: 5px;}
+
+.m-nav input[type="text"]:hover {background:rgba(255,255,255,0.5); transition:0.5s ease all;}
+
+.m-nav input[type="text"]:focus {background:#fff; color:#333; transition:0.5s ease all;}
+
+.m-nav input::-webkit-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input:-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-o-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav li {list-style:none; float:left; display:inline-block;}
+
+.m-nav li a {text-decoration:none; padding:6px 9px; transition:0.70s ease all; margin-top:7px; margin-left:7px; display:inline-block; cursor:pointer;}
+
+.m-nav li a:hover {background:rgba(255,255,255,0.3); transition:0.70s ease all;}
+
+/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+
+
+
+nav{
+  /*position: fixed;*/
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 30px 30px;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+  height: 8%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* an underline appears at the bottom on hover of each link */
+nav ul li a:hover, nav ul li a:active{
+  border-bottom: 5px solid #1e88e5;
+  padding-bottom: 16px;
+  /*border-radius: 20px 20px 0px 0px; */
+}
+/* end of navigation section*/
+
+
+
+</style>
+<style>
+table {
+  border-collapse: collapse;
+  width: 80%;
+  background-color:   white ; 
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+  
+</style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+
+         ['Time', 'Investment'],
+         [ 12,51],
+         [ 10,     80],
+         [ 11,     100],
+         [ 12,      77],
+         [ 15,      74],
+         [ 19,    68],
+         [ 12,    56],
+         [ 18,    44],
+         [ 21,    71],
+         [ 22,    60]
+       ]);
+
+      var options = {
+          hAxis: {minValue: 0, maxValue: 15},
+          vAxis: {minValue: 0, maxValue: 15},
+          chartArea: {width:'50%'},
+          trendlines: {
+            0: {
+              type: 'linear',
+              showR2: true,
+              visibleInLegend: true
+            }
+          }
+        };
+
+        var chartLinear = new google.visualization.ScatterChart(document.getElementById('chartLinear'));
+        chartLinear.draw(data, options);
+
+        options.trendlines[0].type = 'exponential';
+        options.colors = ['#6F9654'];
+
+        var chartExponential = new google.visualization.ScatterChart(document.getElementById('chartExponential'));
+        chartExponential.draw(data, options);
+      }
+
+   </script>
+
+
+
+</head>
+
+<body class="fix-header fix-sidebar card-no-border" style="overflow: scroll;">
+  <!-- <button id="call" onclick="logout();">Logout</button>
+  <button id="hangup">Hangup</button>
+  <button id="answer">Answer</button> -->
+  <div id="myModal" class="modal fade">
+
+      <div class="modal-dialog">
+
+          <div class="modal-content">
+  <div id="top">
+              <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                  <h4 class="modal-title" style="color: white"><strong>Video Call</strong></h4>
+
+              </div></div>
+
+              <div class="modal-body">
+
+
+                      <strong>VIDEO FRAME</strong>
+
+                      <div id="callLog"></div>
+                      <video id="videooutgoing" autoplay muted></video>
+                      <video id="videoincoming" autoplay></video>
+
+              </div>
+
+              <div class="modal-footer">
+
+                  <button type="button" class="btn btn-primary" onclick="answer();">Accept</button>
+
+                  <button type="button"  class="btn btn-default" data-dismiss="modal" onclick="hangup();" >Decline</button>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+    <div id="messenger"></div>
+   
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+
+       <center>
+
+
+    <main>
+
+    <div class="m-nav m-red" style="width: 100% margin-top:0px;">
+<div class="dropdown" style="float:left; margin-left: 10px; margin-top: 15px">
+ <!--  <button class="dropbtn" style="border:none; color:#fff; background-color: #1e88e5;">
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fa fa-user" ></i>
+  Profile </a></button> -->
+<div class="dropdown-content">
+                                <a class="dropdown-item" href="EditProfilement.html">My account</a>
+                                <a class="dropdown-item" onclick="Signout()" href="javascript:void(0);">Log out</a>
+                            </div>
+            </div>
+
+ <!-- <div class="notification"> --><!-- </div> -->
+
+ <div class="dropdown-container1" >
+                                  <!-- <a href="#" data-dropdown="notificationMenu1" class="has-notifications">
+                                    <div class="notification"></div>
+                                  </a> -->
+                                  <div class="people-you-might-know dropdown1" name="notificationMenu1"style="color:black;" id="start_not">
+                                    <!-- <p>ccsdc</p>
+                                    <p>Startup not</p>
+                                    <div class="view-more-people">
+                                      <p class="view-more-text">
+                                        <a href="#" class="view-more-link">View More..</a>
+                                      </p>
+                                    </div> -->
+                                  </div>
+
+
+                                </div>
+      <input type="text" placeholder="Search Box" >
+<!--                       <div class="container">
+ -->
+          <!-- </div> -->
+</div>
+
+<!--       <li><a><i style="font-size:27px;" class="material-icons">face</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">public</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">person</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">home</i></a></li> -->
+    <!-- </div> -->
+        <!-- navbar -->
+        <nav class="navbar">
+          <ul>
+            <li><a href="market.html">Market</a></li>
+            <li><a href="schemes.html">Schemes</a></li>
+            <li><a href="cert.html">Certificates</a></li>
+            <!-- <li><a href="#">Contact</a></li> -->
+          </ul>
+
+
+
+
+
+
+        </nav>
+        <!-- navbar -->
+
+
+    </main>
+    </center>
+
+                <div class="row" style="margin-right:10px">
+                    
+<script>
+  var mentors={};
+  var dom_sec_to_display={};
+  var dom_sec_index={};
+  var loc_to_display=new Array();
+  var loc_index=new Array();
+  var stages_to_display=new Array();
+  var stages_index=new Array();
+  var fields_checked=new Array();
+  var exp_to_display=new Array();
+  var checked_list=new Array();
+  var domains_selected=new Array();
+
+  $(document).ready(function(){
+      fill_dom_sec();
+      fill_loc();
+      fill_stages();
+      fill_experience();
+
+  });
+
+  function fill_dom_sec(){
+
+
+      var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+      root=root.child("Domain");
+      root.once("value", function(snapshot) {
+      console.log(snapshot.val());
+      snapshot.forEach(function(childSnapshot) {
+          //Here you can access  childSnapshot.key
+          z=childSnapshot.key()
+          console.log(childSnapshot.val());
+          dom_sec_to_display[childSnapshot.key()]=childSnapshot.val();
+          // dom_sec_index[childSnapshot.key().split("_")[0]]=;
+          console.log(dom_sec_to_display);
+      });
+          load_domain();
+      }, function (error) {
+
+      alert("Kuch toh gadbad hai Daya");
+
+      });
+
+  }
+
+
+  function load_domain(){
+      var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+      var t=1;
+      for(domain in dom_sec_to_display){
+
+      //console.log(domain);
+      document.getElementById("domain_checkboxes").innerHTML+=`<li><input class="category-clear-selection" id="category-checkbox`+t+`" type="checkbox" onclick="ld(this);" value="`+domain.split("_")[0]+`_domain"><label for="category-checkbox`+t+`">`+domain.split("_")[0]+`</label></li>`;
+      t++;
+      }
+
+  }
+  function ld(ref){
+    var value = $(ref).attr("value");
+    console.log("///////////////////////////////");
+      console.log(value);
+      if(ref.checked){
+          checked_list.push(value);
+          console.log(checked_list);
+      }
+      else{
+          //console.log(checked_list.indexOf(value));
+          checked_list.splice(checked_list.indexOf(value), 1 );
+          // checked_list.remove(value);
+          //console.log(checked_list);
+      }
+
+
+      filter();
+      load_sector();
+
+  }
+  function l(ref){
+
+      var value = $(ref).attr("value");
+      //console.log(value);
+      if(ref.checked){
+          checked_list.push(value);
+          console.log(checked_list);
+      }
+      else{
+          //console.log(checked_list.indexOf(value));
+          checked_list.splice(checked_list.indexOf(value), 1 );
+          // checked_list.remove(value);
+          //console.log(checked_list);
+      }
+
+      filter();
+
+  }
+  function load_sector(){
+    document.getElementById("sector_checkboxes").innerHTML="";
+      console.log("Selected");
+
+      domains_selected = domains_selected.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+      //document.getElementById("sector_checkboxes").innerHTML="";
+      var t = 1;
+      console.log("**********************",domains_selected);
+      for(domain in domains_selected){
+        console.log("-----------------------");
+          console.log(dom_sec_to_display);
+
+          console.log(dom_sec_to_display[domains_selected[domain]]);
+           console.log("-----------------------");
+          sectors=dom_sec_to_display[domains_selected[domain]].split(",");
+          for(sector in sectors){
+              // document.getElementById("sector_checkboxes").innerHTML+=`<li><input id="size-checkbox`+t+`" type="checkbox" onclick="l(this);" value="`+sectors[sector]+`_Sector"><label for="size-checkbox`+t+`">`+sectors[sector]+`</label></li>`;
+              document.getElementById("sector_checkboxes").innerHTML+=`<li><input id="size-checkbox`+t+`" type="checkbox" onclick="l(this);" value="`+sectors[sector]+`_sector"><label for="size-checkbox`+t+`">`+sectors[sector]+`</label></li>`;
+              t++;
+          }
+
+      }
+
+  }
+  function fill_loc(){
+
+  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+  root=root.child("Location");
+
+  root.once("value", function(snapshot) {
+    console.log(snapshot.val());
+    var split_loc=snapshot.val().split(",");
+
+    for(x in split_loc){
+      loc_index.push(split_loc[x]);
+
+      loc_to_display.push(split_loc[x].split("_")[0]);
+
+    }
+    console.log(loc_index,loc_to_display);
+
+    load_loc();
+  }, function (error) {
+
+    alert("Kuch toh gadbad hai Daya");
+
+   });
+
+
+  }
+  function load_loc(){
+
+      // restore_state();
+      console.log("location",loc_to_display);
+      var t=1;
+      loc_to_display.forEach(function(entry) {
+      console.log("entry = ",entry);
+      document.getElementById("location_checkboxes").innerHTML+=`<li><input id="price-checkbox`+t+`" type="checkbox" onclick="l(this);" value="`+entry+`_location"><label for="price-checkbox`+t+`">`+entry+`</label></li>`;
+      //document.getElementById("loc_list").innerHTML+="<input type='checkbox' onclick='l(this);' value='"+entry+'_Location'+"'>"+entry;
+      t++;
+      });
+  }
+
+  function fill_experience(){
+
+  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+  root=root.child("Experience");
+  root.once("value", function(snapshot) {
+    console.log(snapshot.val());
+    var split_exp=snapshot.val().split(",");
+
+    for(val in split_exp){
+      console.log(val);
+      exp_to_display.push(split_exp[val]);
+
+    }
+    console.log("exp = ",exp_to_display);
+
+      load_experience();
+  }, function (error) {
+
+    alert("Kuch toh gadbad hai Daya");
+
+   });
+
+
+
+  }
+
+ 
+      console.log("********************** filter ended****************************")
+  // }
+
+  function display_list(){
+    list_to_display = list_to_display.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+    for(x in list_to_display){
+    var container = document.getElementById("mentor");
+    container.innerHTML+=`<div class="column" >
+                          <div class="card" >
+
+                            <!-- <img class="card-img-top" src="../assets/images/background/profile-bg.jpg" alt="Card image cap"> -->
+                            <div class="card-block little-profile text-center" style="margin-top: 100px;">
+                                <div class="pro-img"><img src="../assets/images/users/4.jpg" alt="user" /></div>
+                                <h3 class="m-b-0">`+list_to_display[x]["name"]+`</h3>
+                                <p>`+list_to_display[x]["domain"]+`</p>
+                                <button href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" >Request</button>
+
+                          </div></div>`;
+    }
+  }
+
+   </script>
+
+
+<script>
+  $('.categories-menu.menu.nested').each(function(){
+  var filterAmount = $(this).find('li').length;
+  if( filterAmount > 5){
+    $('li', this).eq(4).nextAll().hide().addClass('toggleable');
+    $(this).append('<li class="more">More</li>');
+  }
+});
+
+$('.categories-menu.menu.nested').on('click','.more', function(){
+  if( $(this).hasClass('less') ){
+    $(this).text('More').removeClass('less');
+  }else{
+    $(this).text('Less').addClass('less');
+  }
+  $(this).siblings('li.toggleable').slideToggle();
+});
+//Google TRends
+  
+
+</script>
+
+
+
+<div class="card1" style="  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1); padding: 1%; margin-right:1%; margin-left: 1%; margin-top: 50px ; align-content: center; width:800px"  >
+
+ <div style="margin: 10px 0px 0px 10px">
+<strong><h3>Market Trends</h3></strong>
+<br></div>
+
+<div class="row"   >
+
+   <div id="chartLinear" style="height: 500px; width:800px;"></div>
+    <!-- <div id="chartExponential" style="height: 350px; width: 800px"></div> -->
+
+
+  <!------Startup Ecosystem------------------------>
+  <h2 style="text-align:center;margin-top: 20px;">February 2019</h2>
+ 
+
+  <table  >
+    
+  <tr>
+    <th >StartupName</th>
+    <th>Industry</th>
+    <th>Investor's Name</th>
+    <th>Investment Type</th>
+    <th>Amount</th>
+  </tr>
+  <tr>
+    <td>FleetX</td>
+    <td>AI</td>
+    <td>India Quotient and LetsVenture’s Angel Fund</td>
+    <td>Pre Series A</td>
+    <td>Undisclosed</td>
+    
+  </tr>
+   <tr>
+    <td>  OyoRooms</td>
+    <td>Hospitality</td>
+    <td>DiDi Chuxing</td>
+    <td>Equity</td>
+    <td>100,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>  Zilingo</td>
+    <td>Ecommerce</td>
+    <td>Sequoia Capital and Temasek Holdings, EDBI, Burda Principal Investments, and Sofina</td>
+    <td>Series D</td>
+    <td>226,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>NanoClean Global</td>
+    <td>Nanotechnology</td>
+    <td>LetsVenture, PitchRight Venture, 91SpringBoard, AL Nour International Holdings and Mark V Investments</td>
+    <td>Series A</td>
+    <td>600,000</td>
+    
+  </tr>
+</table>
+
+
+           <!----------Internet of Things-------------------------->
+
+   <h2 style="text-align:center;margin-top: 20px;margin-left: 20px;">    January     2019</h2>
+  <table  >
+    
+  <tr>
+    <th >StartupName</th>
+    <th>Industry</th>
+    <th>Investor's Name</th>
+    <th>Investment Type</th>
+    <th>Amount</th>
+  </tr>
+  <tr>
+    <td>CarDekho</td>
+    <td>Automobile</td>
+    <td>Sequoia India, Hillhouse Capital, Alphabet’s growth investment arm Capital G and Axis Bank</td>
+    <td>Series C</td>
+    <td>110,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>  Vyome Therapeutics Inc. </td>
+    <td>Health and Wellness</td>
+    <td>Iron Pillar, Perceptive Advisors, Romulus Capital and Kalaari Capital</td>
+    <td>Series D</td>
+    <td>22,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>Samunnati Financial Intermediation & Services Pvt. Ltd</td>
+    <td>Finance</td>
+    <td>MASSIF, a Dutch government fund</td>
+    <td>Debt-Funding</td>
+    <td>5,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>Manch</td>
+    <td>Social Media</td>
+    <td>Stellaris Venture Partners </td>
+    <td>Seed Funding  </td>
+    <td>700,000</td>
+    
+  </tr>
+</table>
+          <!------------------------------------->
+
+
+    <h2 style="text-align:center;margin-top: 20px;">December  2018</h2>
+  <table  >
+    
+  <tr>
+    <th >StartupName</th>
+    <th>Industry</th>
+    <th>Investor's Name</th>
+    <th>Investment Type</th>
+    <th>Amount</th>
+  </tr>
+  <tr>
+    <td>CarDekho</td>
+    <td>Automobile</td>
+    <td>Sequoia India, Hillhouse Capital, Alphabet’s growth investment arm Capital G and Axis Bank</td>
+    <td>Series C</td>
+    <td>110,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>  Vyome Therapeutics Inc. </td>
+    <td>Health and Wellness</td>
+    <td>Iron Pillar, Perceptive Advisors, Romulus Capital and Kalaari Capital</td>
+    <td>Series D</td>
+    <td>22,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>Samunnati Financial Intermediation & Services Pvt. Ltd</td>
+    <td>Finance</td>
+    <td>MASSIF, a Dutch government fund</td>
+    <td>Debt-Funding</td>
+    <td>5,000,000</td>
+    
+  </tr>
+   <tr>
+    <td>Manch</td>
+    <td>Social Media</td>
+    <td>Stellaris Venture Partners </td>
+    <td>Seed Funding  </td>
+    <td>700,000</td>
+    
+  </tr>
+</table>
+
+ 
+ <!--  <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/Developing-a-Startup-Ecosystem.pdf" download>Developing Startup Ecosystem</div>
+   <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/Digital-Banking.pdf" download>Digital Banking</div>
+   <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/Fintech_WorkingGroup.pdf" download>Fintech</div>
+   <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/grant_thorton-startups_report.pdf" download>Grant Thorton Satrtup Report</div>
+   <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/IoT.pdf" download>Internet of Things</div>
+   <div style="padding-top:100px;
+;padding:20px;left:20%;text-align:center;font-size: 20px; box-shadow:0px 1px 12px 1px rgba(0, 0, 0, 0.1);"><embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=http://example.com/the_indian_startup_saga.pdf" download>The Indian Startup Saga</div>
+
+    -->
+  </div>
+</div>
+                </div>
+</div>
+
+     <!--    </div>
+
+    </div>
+     -->
+
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!-- chartist chart -->
+    <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="../assets/plugins/d3/d3.min.js"></script>
+    <script src="../assets/plugins/c3-master/c3.min.js"></script>
+    <!-- Chart JS -->
+    <script src="js/dashboard1.js"></script>
+
+
+        <script>
+
+    $(document).ready(function(){
+       load_startups_list()
+    });
+
+
+    var mentors={};
+    var ret_mentor_list=[];
+    var ret_mentor_keys = [];
+    var my_mentors_list = [];
+    var my_id = "JWlf1N4a8JXIq4Ik4liR7BtbFTY2";
+    setTimeout(function(){load_chats();},5000);
+
+//     function load_startups_name(){
+//       var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+//         console.log("Called");
+//         for (var key=0;key<startups.length;key++){
+//           root.child("Users").child(startups[key]).on("value",function(snapshot){
+//             var x=snapshot.val();
+// // console.log(startups[key]["name"]);
+//             var container = document.getElementById("mentor");
+//             container.innerHTML+=`<div class="column" >
+//                                    <div class="card" >
+
+//                                      <!-- <img class="card-img-top" src="../assets/images/background/profile-bg.jpg" alt="Card image cap"> -->
+//                                      <div class="card-block little-profile text-center" style="margin-top: 100px;">
+//                                          <div class="pro-img"><img src="../assets/images/users/4.jpg" alt="user" /></div>
+//                                          <h3 class="m-b-0">`+x["name"]+`</h3>
+//                                          <p>`+x["domain"]+`</p>
+//                                          <button href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" >Request</button>
+
+//                                </div></div>`;
+//           });
+
+//         }
+
+        // console.log("Called");
+        // for (var key in mentors){
+        //     //key will be -> 'id'
+        //     //dictionary[key] -> 'value'
+
+        //     //console.log(mentors[key]["name"]);
+        //     var container = document.getElementById("mentor");
+        //     container.innerHTML+=`<div class="column" >
+        //                           <div class="card" >
+
+        //                             <!-- <img class="card-img-top" src="../assets/images/background/profile-bg.jpg" alt="Card image cap"> -->
+        //                             <div class="card-block little-profile text-center" style="margin-top: 100px;">
+        //                                 <div class="pro-img"><img src="../assets/images/users/4.jpg" alt="user" /></div>
+        //                                 <h3 class="m-b-0">`+mentors[key]["name"]+`</h3>
+        //                                 <p>`+mentors[key]["domain"]+`</p>
+        //                                 <button href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" >Request</button>
+
+        //                       </div></div>`;
+            // document.getElementById("mentors_list").innerHTML+="<br>";
+            // document.getElementById("mentors_list").innerHTML+=mentors[key]["Name"];
+        // }
+    }
+    function get_my_mentors_for_chats(){
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+        for(var z=0;z<my_mentors_list.length;z++){
+            root.child("Users").child(my_mentors_list[z]).on("value",function(m){
+
+                var n = m.val();
+
+                console.log(n);
+                var chat_list = document.getElementById("chat_list");
+                //console.log("chatlist = ",chat_list);
+
+                chat_list.innerHTML+=`<a href="#">
+                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="mail-contnet">
+                                                <h5>`+n["name"]+`</h5> <span class="mail-desc">info@wrappixel.com</span></div>
+                                                <button type="button" id="`+my_mentors_list[z]+`_`+z+`" href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" onclick="openchat(this)">Chat</button>
+                                        <button id="`+my_mentors_list[z]+`" href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" onclick="start_video_call(this)">Video</button>
+                                        </a>`;
+                console.log(my_mentors_list[z]);
+                console.log("n = ",n["name"]);
+
+            });
+        }
+
+    }
+
+
+    function start_video_call(ref){
+      console.log("Function called");
+
+      call($(ref).attr("id"));
+    }
+    
+  function min(something){
+    console.log("Minimize called");
+    var ref = something;
+    var id = $(something).attr("name").split('_')[0];
+    var shiftleft = $(something).attr('name').split('_')[1];
+    // id="open-chat"
+    console.log("name = ",ref);
+    console.log("id = ",id);
+    try{
+    var elem = document.getElementById($(something).attr("name"));
+    elem.parentNode.removeChild(elem);
+    }
+    catch(error){
+
+    }
+    document.body.innerHTML+=`<button class="open-button" id="`+id+`_`+shiftleft+`"  onclick="open_chat_from(this)">Chat<span><i class="material-icons" style="font-size: 15px;float:right;" name="`+id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</i></span></button>`;
+    document.getElementById('messenger').style.display="none";
+    // document.getElementById('open-chat').style.display="block";
+  }
+
+
+  function clos(something){
+
+    console.log("clos() called")
+    var ref = something;
+    console.log("ref = ",ref);
+    console.log($(something).attr("name"));
+    var id = $(something).attr("name").split('_')[0];
+    var shiftleft = $(something).attr('name').split('_')[1];
+
+    document.getElementById('messenger').style.display="none";
+    document.getElementById('messenger').innerHTML="";
+    document.getElementById($(something).attr('name')).style.display="none";
+  }
+
+    var count = 0;
+
+    function openchat(n){
+
+
+      console.log("openchat called");
+
+      console.log("ret n = ",$(n).attr('id'));
+      var opp_id = $(n).attr('id').split("_")[0];
+      var count = $(n).attr('id').split("_")[1];
+      document.getElementById("messenger").style.display="block";
+      //document.getElementById("livechat").style.display="block";
+      //document.getElementById(opp_id).style.display="none";
+      console.log("Dread it");
+      var chat = document.getElementById('messenger');
+      var shiftleft= count*303+ 3;
+      chat.innerHTML+= `
+
+          <section class="avenue-messenger" style="display:block;margin-right:`+shiftleft+`px;">
+                  <div class="menu">
+                   <div class="items"><span>
+                     <a href="#" title="Minimize">&mdash;</a><br>
+
+                     <a href="#" title="End Chat">&#10005;</a>
+
+                     </span></div>
+                        <div  ><button name="`+opp_id+`_`+shiftleft+`" id="min" onclick="min(this)">...</button</div>
+                        <div ><button name="`+opp_id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</button></div>
+                  </div>
+                  <div class="agent-face">
+                    <div class="half">
+                     <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino"></div>
+                  </div>
+                <div class="chat">
+                  <div class="chat-title">
+                    <h1>Jesse Tino</h1>
+                    <h2>RE/MAX</h2>
+                  </div>
+                  <div class="messages">
+                    <div id="messages-content" class="messages-content" style="overflow:scroll">
+                        `+retrieve_chat(opp_id)+`
+
+                    </div>
+                  </div>
+                  <div class="message-box">
+                      <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button id="`+opp_id+`" type="button" onclick="do_chat(this)" class="message-submit">Send<button>
+
+                  </div>
+                </div>
+    `
+      // count++;class="message-submit"
+      // <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+      //             <button onclick="load_msg()" type="button" class="message-submit">Send</button>
+      // alert(count);
+      // called();
+      count++;
+  }
+
+function open_chat_from(n){
+
+      console.log("open_chat_from called");
+      console.log("ret n = ",$(n).attr('id'));
+      var opp_id = $(n).attr('id').split("_")[0];
+      var shiftleft = $(n).attr('id').split("_")[1];
+      //document.getElementById("livechat").style.display="block";
+      document.getElementById(opp_id).style.display="none";
+      console.log("Dread it");
+      var chat = document.getElementById('messenger');
+      // var shiftleft= count*303+ 3;
+      document.getElementById($(n).attr('id')).style.display="none";
+      chat.style.display="block";
+      chat.innerHTML="";
+      chat.innerHTML+= `
+
+          <section class="avenue-messenger" style="display:block;margin-right:`+shiftleft+`px;">
+                  <div class="menu">
+                   <div class="items"><span>
+                     <a href="#" title="Minimize">&mdash;</a><br>
+
+                     <a href="#" title="End Chat">&#10005;</a>
+
+                     </span></div>
+                        <div  ><button name="`+opp_id+`_`+shiftleft+`" id="min" onclick="min(this)">...</button</div>
+                        <div ><button name="`+opp_id+`_`+shiftleft+`" id="clos" onclick="clos(this)">X</button></div>
+                  </div>
+                  <div class="agent-face">
+                    <div class="half">
+                     <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino"></div>
+                  </div>
+                <div class="chat">
+                  <div class="chat-title">
+                    <h1>Jesse Tino</h1>
+                    <h2>RE/MAX</h2>
+                  </div>
+                  <div class="messages">
+                    <div id="messages-content" class="messages-content" style="overflow:scroll">
+                        `+retrieve_chat(opp_id)+`
+
+                    </div>
+                  </div>
+                  <div class="message-box">
+                  <textarea id="message_to_send" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button id="`+opp_id+`" type="button" onclick="do_chat(this)" >Send<button>
+                  </div>
+                </div>`
+      // count++;class="message-submit"
+      //style="z-index:1;top:9;right:10"
+      // alert(count);
+      // called();
+      // count++;
+}
+
+  function retrieve_chat(to_id){
+
+        var individual_msg_list=[];
+        var new_individual_msg_list=[];
+        var msg_timestamp_list=[];
+        var original_msg_timestamp_list=[];
+        var single_msg = "hello";
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+        root.child("Users").child(my_id).child("Chat").child(to_id)
+        .on("value",function(snapshot){
+        var data = snapshot.val();
+
+        for(d in data){
+            //console.log(data[d]);
+            individual_msg_list.push(data[d]);
+            new_individual_msg_list.push(data[d]);
+            msg_timestamp_list.push(parseInt(data[d]["timestamp"]))
+            // document.body.innerHTML+="message = "+data[d]["message"]+"   type = "+data[d]["type"]+"<br>";
+            //console.log("message = ",data[d]["message"])
+            //console.log("type = ",data[d]["type"])
+        }
+
+        original_msg_timestamp_list = msg_timestamp_list.slice();
+        msg_timestamp_list =  msg_timestamp_list.sort(function(a,b){return a-b});
+
+        //console.log("individual_msg_list",individual_msg_list);
+        for(var a=0;a<msg_timestamp_list.length;a++){
+            //console.log("a = ",a);
+            //console.log("msg_timestamp_list[a]",msg_timestamp_list[a]);
+            for(var b=0;b<original_msg_timestamp_list.length;b++){
+
+                //console.log("b = ",b);
+                //console.log("msg_timestamp_list[b]",msg_timestamp_list[b]);
+                if(msg_timestamp_list[a]==original_msg_timestamp_list[b]){
+                    new_individual_msg_list[a]=individual_msg_list[b];
+                }
+            }
+        }
+
+        console.log(new_individual_msg_list);
+        for(var c=0;c<new_individual_msg_list.length;c++){
+            console.log(new_individual_msg_list[c]);
+            if(new_individual_msg_list[c]["type"]=="to"){
+            single_msg+=`<div id="chat_box"><p style="padding-left:50%;">`+new_individual_msg_list[c]["message"]+`</p></div>`;
+            }
+            else{
+             single_msg+=`<div id="chat_box"><p>`+new_individual_msg_list[c]["message"]+`</p></div>`;
+            }
+        }
+
+        });
+        return single_msg;
+}
+
+  function do_chat(to_id){
+
+        var to_id = $(to_id).attr("id");
+
+        var new_msg = document.getElementById("message_to_send").value;
+        console.log(new_msg);
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+        root.child("Users").child(my_id).child("Chat").child(to_id).push().set({
+            "message":new_msg,
+            "type":"to",
+            "delivered":"true"
+        });
+
+
+        root.child("Users").child(to_id).child("Chat").child(my_id).push().set({
+            "message":new_msg,
+            "type":"from",
+            "delivered":"true"
+        });
+
+        var load = document.getElementById("messages-content");
+        load.innerHTML+=`<div id="chat_box"><p style="padding-left:50%;">`+new_msg+`</p></div>`;
+
+
+    }
+
+    function load_chats(){
+        console.log("function load_chats()")
+        var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+        root.child("Users").child(my_id).child("Mentors").on("value",function(snap){
+            var val = snap.val();
+            console.log(val);
+            for(v in val){
+                if(val[v]=="Granted"){
+                    console.log(v);
+                    my_mentors_list.push(v);
+
+                }
+            }
+            get_my_mentors_for_chats();
+        });
+
+
+    }
+    var startups=[];
+    function load_startups_list(){
+      var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+            var my_mentor_id = "h9m5EnsIMRaZrdSPPnPMpkkvQ4v2";
+
+            root.child("Users").child(my_mentor_id).child("startups")
+            .on("value",function(snap2){
+                var data2 = snap2.val();
+                console.log(data2);
+                for(d in data2){
+                    if(data2[d]["status"]=="Granted"){
+                        console.log("startup = ",d);
+                        startups.push(d);
+
+                    }
+
+                }
+                load_startups_name();
+            });
+        }
+
+      // notification that a startup has been added
+        $(document).on('click', "a[data-dropdown='notificationMenu1']",  function(e){
+                                      e.preventDefault();
+
+                                      var el = $(e.currentTarget);
+
+                                      $('body').prepend('<div id="dropdownOverlay1" style="background: transparent; height:100%;width:100%;position:fixed;"></div>')
+
+                                      var container = $(e.currentTarget).parent();
+                                      var dropdown = container.find('.dropdown1');
+                                      var containerWidth = container.width();
+                                      var containerHeight = container.height();
+
+                                      var anchorOffset = $(e.currentTarget).offset();
+
+                                      dropdown.css({
+                                        'right': containerWidth / 2 + 'px'
+                                      })
+
+                                      container.toggleClass('expanded')
+
+                                    });
+
+                                    //Close dropdowns on document click
+
+                                    $(document).on('click', '#dropdownOverlay1', function(e){
+                                      var el = $(e.currentTarget)[0].activeElement;
+
+                                      if(typeof $(el).attr('data-dropdown') === 'undefined'){
+                                        $('#dropdownOverlay1').remove();
+                                        $('.dropdown-container1.expanded').removeClass('expanded');
+                                      }
+                                    })
+
+            function get_data(startup){
+                var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                var n;
+                var name;
+                console.log(startup);
+                root.child("Users").child(startup)
+            .on("value",function(snapshot){
+              name=snapshot.val();
+              n= name["name"];
+              console.log("NAME",n);
+              console.log(document.getElementById("start_not").innerHTML);
+
+                document.getElementById("start_not").innerHTML += `
+                                    <div class="view-more-people">
+                                      <p class="view-more-text">
+                                      `+n+` Permission Granted<br>
+                                      <hr>
+                                        <a href="#" class="view-more-link">View More..</a>
+                                      </p>
+                                    </div>
+                                  ` ;
+                console.log("Notification permission granted.");
+
+
+              });
+
+            console.log("Name",n);
+            return (n);
+                  }
+              function startup_allotted(mentor_id){
+            var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+            root.child("notifications").child(mentor_id).on("value",function(snapshot){
+                var requests = snapshot.val();
+                console.log("Requests",requests)
+                for(r in requests){
+                    var startup_id = r;
+                    console.log("1",r);
+                     startup_name= get_data(r);
+                     console.log(startup_name);
+                    console.log("2",requests[r])
+                    var status = requests[r];
+                    console.log("dfg");
+                    //if(status=="Granted"){}
+          // console.log("HI");
+          // console.log(document.getElementById("start_not").innerHTML);
+
+          //       document.getElementById("start_not").innerHTML += `
+          //                           <div class="view-more-people">
+          //                             <p class="view-more-text">
+          //                             `+startup_name+` Permission Granted<br>
+          //                             <hr>
+          //                               <a href="#" class="view-more-link">View More..</a>
+          //                             </p>
+          //                           </div>
+          //                         ` ;
+          //       console.log("Notification permission granted.");
+                console.log(document.getElementById("start_not").innerHTML);
+                }
+                console.log("The END is HERE");
+            });
+        }
+
+        firebase.auth().onAuthStateChanged(function(user) {
+
+  if (user) {
+
+    // User is signed in.
+
+    console.log(user.uid);
+    console.log("fgdfgdfghfgb");
+   startup_allotted(user.uid);
+
+  } else {
+
+    // No user is signed in.
+    alert("login");
+
+    startup_allotted("h9m5EnsIMRaZrdSPPnPMpkkvQ4v2");
+  }
+
+});
+      // notification of startup ends
+
+    //     console.log("load_mentors_list called");
+    //     var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+    //     root=root.child("Users");
+
+    //     root.on("value", function(snapshot) {
+    //     console.log(snapshot);
+    //     snapshot.forEach(function(childSnapshot) {
+    //         //Here you can access  childSnapshot.key
+    //         if(childSnapshot.val()["type"]=="mentor"){
+    //         z=childSnapshot.key()
+    //         //console.log(childSnapshot.key());
+    //         console.log(childSnapshot.val());
+    //         mentors[childSnapshot.key()]=childSnapshot.val();
+    //         ret_mentor_keys.push(childSnapshot.key())
+    //         ret_mentor_list.push(childSnapshot.val());
+    //         }
+    //     });
+    //     console.log("calling load_mentors_name");
+    //     load_mentors_name();
+    //     }, function (error) {
+
+    //     alert("Kuch toh gadbad hai Daya");
+
+    //     });
+
+
+    // }
+    //auth
+    function Signout(){
+      console.log("here");
+  firebase.auth().signOut()
+}
+
+    </script>
+
+
+    <!--------Live Chat Html--------->
+</body>
+
+</html>

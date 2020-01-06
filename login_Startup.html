@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="Signup.css"/>
+	<!--Firebase CDN's-->
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-storage.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+
+			<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+			<!--End of firebase-->
+
+			<script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+			<script>
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+  authDomain: "endgame-ad6a9.firebaseapp.com",
+  databaseURL: "https://endgame-ad6a9.firebaseio.com",
+  projectId: "endgame-ad6a9",
+  storageBucket: "endgame-ad6a9.appspot.com",
+  messagingSenderId: "570139431068"
+};
+firebase.initializeApp(config);
+var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+
+
+    function signInWithEmail(){
+
+        var dipp = document.getElementById("Dipp").value;
+        var dipp = dipp+"@gmail.com";
+        var password = document.getElementById("password").value;
+        const auth = firebase.auth();
+        console.log("In SignIN");
+        console.log("In SognON");
+      //   	var typeofuser=get_type_from_id(user.uid);
+    		// console.log(typeofuser);
+        // if(typeofuser=="startup"){
+        // 	window.location("startupdash2.html");
+        // }
+        auth.signInWithEmailAndPassword(dipp,password).catch(function(error){
+            console.log("error = ",error);
+
+        });
+
+        auth.onAuthStateChanged(function(user){
+
+            console.log("user = ",user);
+             get_type_from_id(user.uid);
+
+
+
+        });
+    }
+
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//     // var user.uid=JWlf1N4a8JXIq4Ik4liR7BtbFTY2
+//     console.log(user.uid);
+//     get_name_from_id(user.uid);
+
+//   } else {
+//     // No user is signed in.
+//   }
+// });
+
+
+var user_list=[];
+var name;
+
+function get_name_from_id(user_id){
+
+  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+  root=root.child("Users");
+  root.once("value", function(snapshot) {
+    console.log(snapshot.val());
+
+    user_list=snapshot.val();
+    name=user_list[user_id]["name"];
+    console.log(name);
+  }, function (error) {
+
+    alert("Kuch toh gadbad hai Daya");
+
+   });
+}
+var type;
+function get_type_from_id(user_id){
+
+  var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+  root=root.child("Users");
+  root.once("value", function(snapshot) {
+    console.log(snapshot.val());
+
+    user_list=snapshot.val();
+    user_type=user_list[user_id]["type"];
+    console.log(user_type);
+    if(user_type=="startup"){
+              console.log("here");
+              window.location.href="final_dashboard.html?type=startup";
+            }
+            else if(user_type=="mentor"){
+              window.location.href="Mentor%20dash.html?type=mentor";
+            }
+            else if(user_type=="admin"){
+              window.location.href="Final_Admin.html?type=admin";
+            }
+
+  }, function (error) {
+
+    alert("Kuch toh gadbad hai Daya");
+
+   });
+
+    return type;
+}
+
+/* function Signout(){
+	firebase.auth().signOut()
+} */
+
+
+
+</script>
+
+
+
+			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+			<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+
+
+			<script>
+
+
+
+
+			</script>
+</head>
+<body>
+		<div class="form-v10-content">
+			<form class="form-detail" style="width:200" action="#" method="post" id="myform">
+
+				<div class="form-right" style="width:200">
+					<h4>Login</h4>
+
+					<!-- <div class="form-row">
+							<input type="text" name="street" class="street" id="startup_name" placeholder="startup Name" required>
+						</div> -->
+					<div class="form-row">
+						<input type="text" name="additional" class="additional" id="Dipp" placeholder="Dipp Number / Govt ID Number" required>
+					</div>
+
+                    <div class="form-row">
+                            <input type="password" name="additional" class="additional" id="password" placeholder="Password" required>
+                    </div>
+
+					<div class="form-row-last">
+						<input type="button" name="register" class="register" onclick="signInWithEmail()" value="Login">
+					</div>
+					<!-- <button onclick="Signout()">Logout</button> -->
+				</div>
+			</form>
+		</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

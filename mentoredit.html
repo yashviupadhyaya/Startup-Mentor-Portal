@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>Material Pro Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<style>
+/* navigation section */
+
+nav{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 30px 30px;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+  height: 8%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* an underline appears at the bottom on hover of each link */
+nav ul li a:hover, nav ul li a:active{
+  border-bottom: 5px solid #1e88e5;
+  padding-bottom: 16px;
+  border-radius: 20px 20px 0px 0px;
+}
+/* end of navigation section*/
+
+/* left column of first content */
+.left-section{
+  float: left;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-align: center;
+}
+.left-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of left column of first content */
+
+/* right column of first content */
+.right-section{
+  float: right;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-indent: 5px;
+  text-align: center;
+}
+
+.right-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of right column of first content */
+
+/* footer */
+footer{
+  clear: both;
+}
+
+footer p{
+  padding: 30px;
+}
+/* end of footer */
+
+
+/******* MEDIA QUERIES *******/
+
+@media (max-width: 900px){
+  #pagewrap {
+    width: auto;
+    float: none;
+  }
+
+  .left-section {
+    width: auto;
+    float: none;
+    margin: 1%;
+  }
+
+  .right-section{
+    width: auto;
+    float: none;
+    margin: 1%;
+  }
+
+  .imgs{
+    width: 100%;
+    float: none;
+  }
+
+  #left-image, #middle-image{
+    margin: none;
+  }
+
+  nav ul li a{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 400px){
+  body{
+    font-size: .98em;
+  }
+
+  nav ul li{
+    padding: 5px;
+  }
+}
+/* The container <div> - needed to position the dropdown content */
+    .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/*@@@@@@@@@@@@@@@@ Notification @@@@@@@@@@@@@@@@@*/
+.dropdown-container1.expanded .dropdown1 {
+  -webkit-animation: fadein .5s;
+  -moz-animation: fadein .5s;
+  -ms-animation: fadein .5s;
+  -o-animation: fadein .5s;
+  animation: fadein .5s;
+  display: block;
+}
+.dropdown-container1 .dropdown1 {
+  -webkit-animation: fadeout .5s;
+  -moz-animation: fadeout .5s;
+  -ms-animation: fadeout .5s;
+  -o-animation: fadeout .5s;
+  animation: fadeout .5s;
+  display: none;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  max-height: 600px;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  margin-top: 3px;
+  margin-right: -15px;
+  border-top: 4px solid #1e88e5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -webkit-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  /*
+  &:before{
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+    top: -13px;
+    right: 7px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $secondary-color;
+  }
+  */
+}
+.dropdown-container1 .dropdown1 .notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab {
+  padding: 0px 25px;
+  min-height: 65px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover {
+  cursor: pointer;
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .fa, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover h4, .dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-tab:hover .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list {
+  padding: 0;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item {
+  padding: 5px 25px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .message {
+  margin: 5px 5px 10px;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer {
+  color: #3f51b5;
+  text-decoration: none;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item .item-footer .date {
+  float: right;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:nth-of-type(odd) {
+  background: #e3e3e3;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:hover {
+  cursor: pointer;
+}
+.dropdown-container1 .dropdown1 .notification-group .notification-list .notification-list-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab {
+  background: #3f51b5;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .fa, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab h4, .dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-tab .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container1 .dropdown1 .notification-group.expanded .notification-list {
+  height: 250px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa, .dropdown-container1 .dropdown1 .notification-group h4, .dropdown-container1 .dropdown1 .notification-group .label {
+  color: #333;
+  display: inline-block;
+}
+.dropdown-container1 .dropdown1 .notification-group .fa {
+  margin-right: 5px;
+  margin-top: 25px;
+}
+.dropdown-container1 .dropdown1 .notification-group .label {
+  float: right;
+  margin-top: 20px;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 0px 7px;
+  border-radius: 15px;
+}
+
+
+.dropdown-container {
+  overflow-y: hidden;
+}
+.dropdown-container.expanded .dropdown {
+  -webkit-animation: fadein .5s;
+  -moz-animation: fadein .5s;
+  -ms-animation: fadein .5s;
+  -o-animation: fadein .5s;
+  animation: fadein .5s;
+  display: block;
+}
+.dropdown-container .dropdown {
+  -webkit-animation: fadeout .5s;
+  -moz-animation: fadeout .5s;
+  -ms-animation: fadeout .5s;
+  -o-animation: fadeout .5s;
+  animation: fadeout .5s;
+  display: none;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  max-height: 600px;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  margin-top: 3px;
+  margin-right: -15px;
+  border-top: 4px solid #1e88e5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -webkit-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -5px rgba(0, 0, 0, 0.75);
+  /*
+  &:before{
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+    top: -13px;
+    right: 7px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $secondary-color;
+  }
+  */
+}
+.dropdown-container .dropdown .notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+.dropdown-container .dropdown .notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container .dropdown .notification-group .notification-tab {
+  padding: 0px 25px;
+  min-height: 65px;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover {
+  cursor: pointer;
+  background: #3f51b5;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover .fa, .dropdown-container .dropdown .notification-group .notification-tab:hover h4, .dropdown-container .dropdown .notification-group .notification-tab:hover .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group .notification-tab:hover .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container .dropdown .notification-group .notification-list {
+  padding: 0;
+  overflow-y: auto;
+  height: 0px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item {
+  padding: 5px 25px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .message {
+  margin: 5px 5px 10px;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .item-footer {
+  color: #3f51b5;
+  text-decoration: none;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item .item-footer .date {
+  float: right;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:nth-of-type(odd) {
+  background: #e3e3e3;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:hover {
+  cursor: pointer;
+}
+.dropdown-container .dropdown .notification-group .notification-list .notification-list-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab {
+  background: #3f51b5;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab .fa, .dropdown-container .dropdown .notification-group.expanded .notification-tab h4, .dropdown-container .dropdown .notification-group.expanded .notification-tab .label {
+  color: #FFF;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-tab .label {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+.dropdown-container .dropdown .notification-group.expanded .notification-list {
+  height: 250px;
+  max-height: 250px;
+  transition: height .5s;
+}
+.dropdown-container .dropdown .notification-group .fa, .dropdown-container .dropdown .notification-group h4, .dropdown-container .dropdown .notification-group .label {
+  color: #333;
+  display: inline-block;
+}
+.dropdown-container .dropdown .notification-group .fa {
+  margin-right: 5px;
+  margin-top: 25px;
+}
+.dropdown-container .dropdown .notification-group .label {
+  float: right;
+  margin-top: 20px;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 0px 7px;
+  border-radius: 15px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.menu-link has-notifications circle {
+    font-size: xx-large;
+    padding-top: 1rem;
+}
+
+@media only screen and (max-width: 321px) {
+  .dropdown-container .dropdown .notification-group .notification-tab h4, .dropdown-container .dropdown1 .notification-group .notification-tab h4 {
+    display: none;
+  }
+  .dropdown-container .dropdown .notification-group .notification-tab:hover h4, .dropdown-container .dropdown1 .notification-group .notification-tab:hover h4 {
+    display: none;
+  }
+  .dropdown-container .dropdown .notification-group.expanded .notification-tab h4, .dropdown-container .dropdown1 .notification-group.expanded .notification-tab h4 {
+    display: none;
+  }
+}
+@media only screen and (max-width: 514px) {
+  .dropdown-container .dropdown, .dropdown-container .dropdown1 {
+    width: 100%;
+    margin: 0px;
+    left: 0;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.m-red {background:#1e88e5; color:#fff; text-decoration:none;}
+
+.m-nav {width:100%; height:60px; display:inline-block; text-align:right;}
+
+.m-nav input[type="text"] {float:right; margin-right: 20px; background:rgba(255,255,255,0.3); border:none; padding:8px; outline:none; color:#fff; margin-top:10px;  font-family:"Roboto",Arial sans-serif; height:40px; display:inline-block; transition:0.5s ease all; width:20%;  border-radius: 5px;}
+
+.m-nav input[type="text"]:hover {background:rgba(255,255,255,0.5); transition:0.5s ease all;}
+
+.m-nav input[type="text"]:focus {background:#fff; color:#333; transition:0.5s ease all;}
+
+.m-nav input::-webkit-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input:-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-o-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav li {list-style:none; float:left; display:inline-block;}
+
+.m-nav li a {text-decoration:none; padding:6px 9px; transition:0.70s ease all; margin-top:7px; margin-left:7px; display:inline-block; cursor:pointer;}
+
+.m-nav li a:hover {background:rgba(255,255,255,0.3); transition:0.70s ease all;}
+
+</style>
+
+<body class="fix-header fix-sidebar card-no-border">
+
+       
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <center>
+
+
+            <main>
+        
+            <div class="m-nav m-red" style="width: 100% margin-top:0px;">
+                                                       <input type="text" placeholder="Search Box" >
+        
+        
+        <div class="dropdown" style="float:left; margin-left: 10px; margin-top: 15px">
+          <button class="dropbtn" style="border:none; color:#fff; background-color: #1e88e5;">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" ></i>
+          Profile </a></button>
+        <div class="dropdown-content">
+                                        <a class="dropdown-item" href="Mentor dash.html?type=mentor">My account</a>
+                                        <a class="dropdown-item" onclick=Signout();>Log out</a>
+        
+                                    </div>
+                    </div>
+        <!--@@@@@@@@@@@@@@@@@@@@@ Notification start @@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+         <div class="dropdown-container1" >
+        
+                                          <a href="#" data-dropdown="notificationMenu1" class="has-notifications">
+                                            <div class="notification"></div>
+                                          </a>
+                                          <div class="people-you-might-know dropdown1" name="notificationMenu1" id="start_req">
+                                            <p>Startup Req</p>
+                                            <div class="view-more-people">
+                                              <p class="view-more-text">
+                                                <a href="#" class="view-more-link">View More..</a>
+                                              </p>
+                                            </div>
+                                          </div>
+        
+        
+                                        </div>
+                                        <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+        
+        
+        
+                                        <script>
+                                        //Open dropdown when clicking on element
+                                            $(document).on('click', "a[data-dropdown='notificationMenu1']",  function(e){
+                                              e.preventDefault();
+        
+                                              var el = $(e.currentTarget);
+        
+                                              $('body').prepend('<div id="dropdownOverlay1" style="background: transparent; height:100%;width:100%;position:fixed;"></div>')
+        
+                                              var container = $(e.currentTarget).parent();
+                                              var dropdown = container.find('.dropdown1');
+                                              var containerWidth = container.width();
+                                              var containerHeight = container.height();
+        
+                                              var anchorOffset = $(e.currentTarget).offset();
+        
+                                              dropdown.css({
+                                                'right': containerWidth / 2 + 'px'
+                                              })
+        
+                                              container.toggleClass('expanded')
+        
+                                            });
+        
+                                            //Close dropdowns on document click
+        
+                                            $(document).on('click', '#dropdownOverlay1', function(e){
+                                              var el = $(e.currentTarget)[0].activeElement;
+        
+                                              if(typeof $(el).attr('data-dropdown') === 'undefined'){
+                                                $('#dropdownOverlay1').remove();
+                                                $('.dropdown-container1.expanded').removeClass('expanded');
+                                              }
+                                            })
+        
+        
+                                            </script>
+        
+                                            <div class="dropdown-container"  id="ment_authen">
+                                          <a href="#" data-dropdown="notificationMenu" class="has-notifications">
+                                            <div class="notification"></div>
+                                          </a>
+                                          <div class="people-you-might-know dropdown" name="notificationMenu"  id="ment_auth" style="color:black;">
+                                          <p>Ment Auth</p>
+        
+                                              <!-- <div class="view-more-people">
+                                              <p class="view-more-text">
+                                                <a href="#" class="view-more-link">View More..</a>
+                                              </p>
+                                            </div>
+                                            </div>
+         -->
+                                          </div>
+                                        </div></div>
+                              <!-- <div class="container"> -->
+        
+                  <!-- </div>
+         -->
+        
+                                        </div>
+                                        <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+        
+        
+        
+                                        <script>
+                                        //Open dropdown when clicking on element
+                                            $(document).on('click', "a[data-dropdown='notificationMenu']",  function(e){
+                                              e.preventDefault();
+        
+                                              var el = $(e.currentTarget);
+        
+                                              $('body').prepend('<div id="dropdownOverlay" style="background: transparent; height:100%;width:100%;position:fixed;"></div>')
+        
+                                              var container = $(e.currentTarget).parent();
+                                              var dropdown = container.find('.dropdown');
+                                              var containerWidth = container.width();
+                                              var containerHeight = container.height();
+        
+                                              var anchorOffset = $(e.currentTarget).offset();
+        
+                                              dropdown.css({
+                                                'right': containerWidth / 2 + 'px'
+                                              })
+        
+                                              container.toggleClass('expanded')
+        
+                                            });
+        
+                                            //Close dropdowns on document click
+        
+                                            $(document).on('click', '#dropdownOverlay', function(e){
+                                              var el = $(e.currentTarget)[0].activeElement;
+        
+                                              if(typeof $(el).attr('data-dropdown') === 'undefined'){
+                                                $('#dropdownOverlay').remove();
+                                                $('.dropdown-container.expanded').removeClass('expanded');
+                                              }
+                                            })
+        
+        
+                                            </script>
+        <!--@@@@@@@@@@@@@@@@@@@@@ Notification start @@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+        
+        </div>
+        
+        <!--       <li><a><i style="font-size:27px;" class="material-icons">face</i></a></li>
+              <li><a><i style="font-size:27px;" class="material-icons">public</i></a></li>
+              <li><a><i style="font-size:27px;" class="material-icons">person</i></a></li>
+              <li><a><i style="font-size:27px;" class="material-icons">home</i></a></li> -->
+            <!-- </div> -->
+                <!-- navbar -->
+                <nav class="navbar">
+                  <ul>
+                    <li><a href="Mentor dash.html?type=mentor">Home</a></li>
+                    <li><a href="pages-blank2.html?type=mentor">Forum</a></li>
+                    <li><a href="SocialNetwork.html?type=mentor">Social</a></li>
+                    <li><a href="#">Startups</a></li>
+                  </ul>
+        
+        
+        
+        
+        
+        
+                </nav>
+                <!-- navbar -->
+        
+        
+            </main>
+            </center>
+        
+                <br>
+        
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-block">
+                                <center class="m-t-30"> <img src="../assets/images/users/5.jpg" class="img-circle" width="150" />
+                                    <h4 class="card-title m-t-10">Hanna Gover</h4>
+                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-block">
+                                <form class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">Full Name</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line" id="name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12">Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password" value="password" class="form-control form-control-line" id="pass">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Phone No</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="123 456 7890" class="form-control form-control-line" id="phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Message</label>
+                                        <div class="col-md-12">
+                                            <textarea rows="5" class="form-control form-control-line" id="msg"></textarea>
+                                        </div>
+                                         <div class="form-group">
+                                        <label class="col-md-12">Sector</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line" id="sect">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Domain</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line" id="dom">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Select State</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control form-control-line" id="loc">
+                                                <option>London</option>
+                                                <option>India</option>
+                                                <option>Usa</option>
+                                                <option>Canada</option>
+                                                <option>Thailand</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                    </div>
+                                    <!-- <button class="btn btn-primary btn-md btn-rounded" style="width:30%; float: left; margin-left: 15%; ">
+                                        Save
+                                    </button> -->
+                    
+                                    
+                                    <input class="btn btn-primary btn-md btn-rounded" style="width:30%; float: left; margin-left: 15%; " type="submit" value="Submit">
+                                    <button class="btn btn-primary btn-md btn-rounded" style="width:30%; float: right; margin-right: 15%; " data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+             
+                               <!-- Column -->
+                </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+    <script>
+
+
+        ///starts--------
+        var config = {
+                apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+                authDomain: "endgame-ad6a9.firebaseapp.com",
+                databaseURL: "https://endgame-ad6a9.firebaseio.com",
+                projectId: "endgame-ad6a9",
+                storageBucket: "endgame-ad6a9.appspot.com",
+                messagingSenderId: "570139431068"
+            };
+            firebase.initializeApp(config);
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                
+                var u_id=user.uid;
+                var root = new Firebase('https://endgame-ad6a9.firebaseio.com/');
+                root.child("Users").child(u_id).child("name")
+                set(document.getElementById("name"));
+                root.child("Users").child(u_id).child("location")
+                set(document.getElementById("loc"));
+                root.child("Users").child(u_id).child("phone")
+                set(document.getElementById("phone"));
+                root.child("Users").child(u_id).child("email")
+                set(document.getElementById("email"));
+                root.child("Users").child(u_id).child("description")
+                set(document.getElementById("msg"));
+                root.child("Users").child(u_id).child("sector")
+                set(document.getElementById("sect"));
+                root.child("Users").child(u_id).child("Domain")
+                set(document.getElementById("dom"));
+
+              } else {
+                alert("U must be loggedin to edit");
+              }
+
+            });
+
+            
+            
+        
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+        
+        
+
+            <!--Firebase CDN's-->
+            <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+
+            <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-storage.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+    
+            <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+            <!--End of firebase-->
+    
+            <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+</body>
+
+</html>

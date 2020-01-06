@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="./css/textfield.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script  src="./js/textfield.js"></script> -->
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>Social Network</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.css'>
+
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!--###################@@@@@@@@@@@@@@@@@@@@@@@##################-->
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBJ7I-9HZJSiY7hJPj8SCbW4tjrxBZQ8b8",
+        authDomain: "endgame-ad6a9.firebaseapp.com",
+        databaseURL: "https://endgame-ad6a9.firebaseio.com",
+        projectId: "endgame-ad6a9",
+        storageBucket: "endgame-ad6a9.appspot.com",
+        messagingSenderId: "570139431068"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="SocialNetwork.js"></script>
+    <script>
+    var url=new URL(window.location);
+    var type=url.searchParams.get("type");
+    setTimeout(function(){
+      if(type=="startup"){
+          document.getElementById("home").href="final_dashboard.html?type=startup";
+          document.getElementById("forum").href="pages-blank2.html?type=startup";
+          document.getElementById("social").href="SocialNetwork.html?type=startup";
+          document.getElementById("account").href="startupview.html?type=startup";
+      }
+      else if(type=="mentor"){
+          document.getElementById("home").href="Mentor dash.html?type=mentor";
+          document.getElementById("forum").href="pages-blank2.html?type=mentor";
+          document.getElementById("social").href="SocialNetwork.html?type=mentor";
+          document.getElementById("account").href="mentorview.html?type=mentor";
+
+      }
+      else if(type=="admin"){
+          document.getElementById("home").href="Final_Admin.html?type=admin";
+          document.getElementById("forum").href="pages-blank2.html?type=admin";
+          document.getElementById("social").href="SocialNetwork.html?type=admin";
+          document.getElementById("account").href="adminview.html?type=admin";
+
+      }else{
+        document.getElementById("home").href="final_dashboard.html?type=startup";
+        document.getElementById("forum").href="pages-blank2.html?type=startup";
+        document.getElementById("social").href="SocialNetwork.html?type=startup";
+        document.getElementById("account").href="startupview.html?type=startup";
+
+      }
+
+
+    },1000);
+
+  </script>
+
+</head>
+
+<style type="text/css">
+/*  body {background:url(http://i.hizliresim.com/68k46P.png)center center fixed no-repeat; background-size:cover; margin:0; padding:0;}
+*/
+.m-red {background:#1e88e5; color:#fff; text-decoration:none;}
+
+.m-nav {width:100%; height:60px; display:inline-block; text-align:right;}
+
+.m-nav input[type="text"] {float:right; margin-right: 20px; background:rgba(255,255,255,0.3); border:none; padding:8px; outline:none; color:#fff; margin-top:10px;  font-family:"Roboto",Arial sans-serif; height:40px; display:inline-block; transition:0.5s ease all; width:20%;  border-radius: 5px;}
+
+.m-nav input[type="text"]:hover {background:rgba(255,255,255,0.5); transition:0.5s ease all;}
+
+.m-nav input[type="text"]:focus {background:#fff; color:#333; transition:0.5s ease all;}
+
+.m-nav input::-webkit-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input:-moz-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav input::-o-input-placeholder {color:rgba(255,255,255,0.6); font-family:"Roboto",Arial sans-serif;}
+
+.m-nav li {list-style:none; float:left; display:inline-block;}
+
+.m-nav li a {text-decoration:none; padding:6px 9px; transition:0.70s ease all; margin-top:7px; margin-left:7px; display:inline-block; cursor:pointer;}
+
+.m-nav li a:hover {background:rgba(255,255,255,0.3); transition:0.70s ease all;}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+
+
+<style type="text/css">
+
+/* main header */
+
+#main, nav, section, footer{
+  /*margin: 1%;*/
+}
+
+#main{
+  width: 100%;
+  height: auto;
+  margin: 0 auto 2% auto;
+  background-image: url(imgs/firewatch-pixelated.png);
+  background-size: cover;
+  background-position: 50% 20%;
+  padding-top: 50vh;
+  padding-bottom: 50vh;
+}
+
+#main h1{
+  text-align: center;
+  font-size: 3em;
+}
+/* end of main header */
+
+/* navigation section */
+
+nav{
+  /*position: fixed;*/
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 30px 30px;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+  height: 8%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* an underline appears at the bottom on hover of each link */
+nav ul li a:hover, nav ul li a:active{
+  border-bottom: 5px solid #1e88e5;
+  padding-bottom: 16px;
+  /*border-radius: 20px 20px 0px 0px; */
+}
+/* end of navigation section*/
+
+</style>
+
+
+
+<body><!--  bgcolor="#46a1de" -->
+
+    <script>
+
+
+
+    $(function() {
+
+
+	$('.searchBtn').click(function() {
+		$('.searchContainer').toggleClass('show');
+		$('.meContainer, .meOverlay').removeClass('show');
+		$('.searchOverlay').toggleClass('show');
+	});
+	$('.you').click(function() {
+		$('.meContainer').toggleClass('show');
+		$('.searchContainer, .searchOverlay').removeClass('show');
+		$('.meOverlay').toggleClass('show');
+	});
+	$('.meOverlay, .searchOverlay').click(function(){
+		$('.searchContainer, .meContainer').removeClass('show');
+		$('.meOverlay, .searchOverlay').removeClass('show');
+	});
+
+	$('.newTweet, .closeNewTweet').click(function() {
+		$('.newTweetContainer').toggleClass('show');
+	});
+	$('.newTweetDarken').click(function() {
+		$('.newTweetContainer').removeClass('show');
+	});
+
+	$('.textarea textarea').focusin(function() {
+		$(this).addClass('focus');
+		$('.addTweet').addClass('change');
+	});
+	$('.closeTweet').click(function() {
+		$('.textarea textarea').removeClass('focus');
+		$('.addTweet').removeClass('change');
+	});
+
+
+
+
+
+
+	// NIGHT MODE
+	$('.NightMode').click(function() {
+		$('nav, body, .meContainer, .searchContainer, .timeline, .textarea, .loadMore, .module, .newTweetContainer').toggleClass('night');
+	});
+
+
+
+});
+
+    </script>
+    <script>
+            function commentsToPost(reference) {
+              console.log($(reference).attr("id"));
+
+              post_id=$(reference).attr("id");
+              string="comments_"+post_id;
+              console.log(string);
+              var x = document.getElementById(string);
+              if (x.style.display === "none" || x.style.display==="hidden") {
+                console.log("Here");
+                x.style.display = "block";
+                //retrieve_comments
+              } else {
+                x.style.display = "none";
+              }
+            }
+    </script>
+    <script>
+            var incr = (function () {
+            var i = 1;
+
+            return function () {
+            return i++;
+            }
+            })();
+
+                //}
+            </script>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+<!--     <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div> -->
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <!-- <div id="main-wrapper"> -->
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+
+             <center>
+
+
+    <main>
+
+    <div class="m-nav m-red" style="width: 100% margin-top:0px;">
+<div class="dropdown" style="float:left; margin-left: 10px; margin-top: 15px">
+  <button class="dropbtn" style="border:none; color:#fff; background-color: #1e88e5;">
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fa fa-user" ></i>
+  Profile </a></button>
+<div class="dropdown-content">
+  <a class="dropdown-item" href="#" id="account">My account</a>
+  <a class="dropdown-item" href="#" onclick="Signout();">Log out</a>
+                            </div>
+            </div>
+
+ <div class="notification"></div>
+      <input type="text" placeholder="Search Box" >
+<!--                       <div class="container">
+ -->
+          <!-- </div> -->
+</div>
+
+<!--       <li><a><i style="font-size:27px;" class="material-icons">face</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">public</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">person</i></a></li>
+      <li><a><i style="font-size:27px;" class="material-icons">home</i></a></li> -->
+    <!-- </div> -->
+        <!-- navbar -->
+        <nav class="navbar">
+          <ul>
+            <li><a href="#" id="home">Home</a></li>
+            <li><a href="#" id="forum">Forum</a></li>
+            <li><a href="#" id="social">Social Network</a></li>
+
+          </ul>
+
+
+
+
+
+
+        </nav>
+        <!-- navbar -->
+
+
+    </main>
+    </center>
+
+
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+<!--         <div class="page-wrapper">
+ -->            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- <div class="container-fluid" style="width:900px; margin-left:10px" > -->
+
+                    <!-- <div id="timeline_tweets" class="timeline"  style="width:860px; margin-left:10px">  -->
+
+
+<div class="card" id="posts" style="margin: 50px;padding:0px;width:900px;margin-left:250px;border:none;" >
+
+
+<section class="wrapper bg-color" style="border:none;background-color:#46a1de;width:100%; align-items: center;align-self: center">
+
+  <ul class="tabs" style="width:100%;">
+    <li class="active">Events</li>
+    <li>Schemes</li>
+    <li>Grant</li>
+    <li>Requirements</li>
+  </ul>
+
+
+  <ul class="tab__content">
+    <li class="active">
+      <div class="content__wrapper"  style="text-align:left;">
+        <!-- <h2 class="text-color">Pick a color</h2> -->
+
+
+
+            <div id="Events"></div>
+
+      </div>
+    </li>
+    <li>
+      <div class="content__wrapper"  style="text-align:left;">
+        <!-- <h2 class="text-color">Her</h2> -->
+
+          <div id="Schemes"></div>
+      </div>
+    </li>
+    <li>
+      <div class="content__wrapper"  style="text-align:left;">
+          <div id="Grants"></div>
+      </div>
+    </li>
+
+    <li>
+      <div class="content__wrapper"  style="text-align:left;">
+          <div id="Requirements"></div>
+      </div>
+    </li>
+  </ul>
+
+
+</section>
+
+                    <!-- <div class="addTweet">
+
+                        <div class="avatar"><img src="https://pbs.twimg.com/profile_images/1044222938474397696/TtNO9cun_400x400.jpg"/></div>
+
+                        <div class="textarea">
+                            <input type="text" id="title" placeholder="Enter Title"><br>
+                            <textarea id="description" placeholder="What's happening?"></textarea>
+                            <div class="btns">
+                                <div class="add"><a class="centre" href="#" data-balloon="Add Photos or Video" data-balloon-pos="up"><span class="far fa-image"></span></a><a class="centre" href="#" data-balloon="Add a GIF" data-balloon-pos="up"><span class="fas fa-film"></span></a><a class="centre" href="#" data-balloon="Add Poll" data-balloon-pos="up"><span class="far fa-chart-bar"></span></a></div>
+                                <div class="submit">
+                                    <button class="closeTweet"><span class="fas fa-times"></span><span class="text">Close Tweet</span></button>
+                                    <button onclick="mainPost()"><span class="fas fa-comment-alt"></span><span class="text">Tweet</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div id="timeline_tweets" class="timeline">
+                    <div class="tweet" style="width:80%; align-self: center;">
+                        <a class="avatar" href=""><img src="https://yt3.ggpht.com/-uJh4oSQAwak/AAAAAAAAAAI/AAAAAAAAAAA/AMGKfKvDP3w/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/></a>
+                        <div class="infoContainer">
+                            <div class="nameContainer"><a href="#"><span class="name">Bob Ross</span><span class="atMe">@BobRoss</span><span class="time">11m</span></a></div>
+                            <div class="message">
+                                <p>Just posting some of my work.</p>
+                                <br>
+                                <div style="width: 80%">
+                                <img src="https://images.fineartamerica.com/images-medium-large-5/autumns-glow-c-steele.jpg"/></div>
+                            </div>
+                            <div class="btns">
+                                <button onclick="commentsToPost()"><span class="fas fa-comment"></span><span class="number">45</span></button>
+                                <button><span class="fas fa-retweet"></span><span class="number">12.3K</span></button>
+                                <button><span class="far fa-heart"></span><span class="number">23.9K</span></button>
+
+                            </div>
+                            <div id="comments" class="comment-section-container card">
+                                            <h3>Comments </h3>
+                                            <div class="row">
+                                                    <div class="col-12">
+                                                            <div class="card-block">
+                                                                    <textarea id="ta" style="height: 100%; width: 100%; padding: 4px; margin: 5px; color: #F3FAFF border:none; " rows="3" placeholder="Post a comment, share a link, or upload a photo..."></textarea>
+                                                                    <button  class="btn btn-success" onclick="postComment()" style="float: right; ">Post</button>
+                                                        </div>
+                                                    </div></div>
+                                            </div>
+                            </div>
+                        </div>
+
+
+        </div> -->
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+
+
+
+
+    <script>
+  $('[data-mobile-app-toggle] .button').click(function () {
+  $(this).siblings().removeClass('is-active');
+  $(this).addClass('is-active');
+});
+</script>
+
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script >
+
+      $(document).ready(function(){
+
+  // Variables
+  var clickedTab = $(".tabs > .active");
+  var tabWrapper = $(".tab__content");
+  var activeTab = tabWrapper.find(".active");
+  var activeTabHeight = activeTab.outerHeight();
+
+  // Show tab on page load
+  activeTab.show();
+
+  // Set height of wrapper on page load
+  tabWrapper.height(activeTabHeight);
+
+  $(".tabs > li").on("click", function() {
+
+    // Remove class from active tab
+    $(".tabs > li").removeClass("active");
+
+    // Add class active to clicked tab
+    $(this).addClass("active");
+
+    // Update clickedTab variable
+    clickedTab = $(".tabs .active");
+
+    // fade out active tab
+    activeTab.fadeOut(250, function() {
+
+      // Remove active class all tabs
+      $(".tab__content > li").removeClass("active");
+
+      // Get index of clicked tab
+      var clickedTabIndex = clickedTab.index();
+
+      // Add class active to corresponding tab
+      $(".tab__content > li").eq(clickedTabIndex).addClass("active");
+
+      // update new active tab
+      activeTab = $(".tab__content > .active");
+
+      // Update variable
+      activeTabHeight = activeTab.outerHeight();
+
+      // Animate height of wrapper to new tab height
+      tabWrapper.stop().delay(50).animate({
+        height: activeTabHeight
+      }, 500, function() {
+
+        // Fade in active tab
+        activeTab.delay(50).fadeIn(250);
+
+      });
+    });
+  });
+
+  // Variables
+  var colorButton = $(".colors li");
+
+  colorButton.on("click", function(){
+
+    // Remove class from currently active button
+    $(".colors > li").removeClass("active-color");
+
+    // Add class active to clicked button
+    $(this).addClass("active-color");
+
+    // Get background color of clicked
+    var newColor = $(this).attr("data-color");
+
+    // Change background of everything with class .bg-color
+    $(".bg-color").css("background-color", newColor);
+
+    // Change color of everything with class .text-color
+    $(".text-color").css("color", newColor);
+  });
+});
+    </script>
+</body>
+
+
+<style>
+/*.navbar{
+  background:white;
+}*/
+.navbar li a{
+  color: #c0c1c2;
+}
+.box-nav{
+
+/*  margin:40px 30px;
+*/
+  margin-bottom: 80px;
+  border-top:1px solid #9EA6BB;
+  border-bottom:1px solid #9EA6BB;
+  /*box-shadow: 0 0 3px rgba(0,0,0, .65);*/
+  padding:5px 2px;
+  font-size: 15px;
+}
+.box-nav li{
+  /*width:207px;*/
+  float: left;
+  text-align: center;
+}
+.alert-callout-subtle {
+/*  width: 95%;
+*/  background: #e6e6e6;
+  color: #8a8a8a;
+  border: 0;
+  border-left: 0.3125rem solid #46a1de;
+  box-shadow: 1px 1px 12px 0px rgba(99, 99, 99, 0.2);
+
+
+
+}
+.alert-callout-subtle.success {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #46a1de;
+}
+.alert-callout-subtle.alert {
+  background: white;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #46a1de;
+  /*margin: 0px 50px 20px 50px;*/
+/*  border-top:solid #67757c;
+  border-right: solid #67757c;
+  border-bottom: solid #67757c;*/
+}
+.alert-callout-subtle.warning {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #ffae00;
+}
+.alert-callout-subtle.primary {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #1779ba;
+}
+.alert-callout-subtle.small {
+  font-size: 80%;
+}
+.alert-callout-subtle.small .close-button {
+  font-size: 1.5rem;
+}
+.alert-callout-subtle.large {
+  font-size: 150%;
+}
+.alert-callout-subtle.large .close-button {
+  font-size: 3rem;
+}
+.alert-callout-subtle .close-button {
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.alert-callout-subtle.radius {
+  border-radius: 0.6rem;
+}
+/*.mobile-app-toggle {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border: 1px solid #1779ba;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}*/
+/*.mobile-app-toggle .button {
+  background: transparent;
+  color: #1779ba;
+  margin-bottom: 0;
+  -webkit-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+.mobile-app-toggle .button:nth-child(n+1) {
+  border-left: 1px solid #67757c;
+  border: solid blue ;
+}
+.mobile-app-toggle .button.is-active {
+  background: #1779ba;
+  color: #fefefe;
+}*/
+/*li{
+  width:20%;
+}*/
+#posts{
+  background-color: white;
+  /*padding: 50px 80px 10px 80px;*/
+}
+.callout
+{
+  margin:10px 80px 10px 80px;
+}
+</style>
+
+
+<style>
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  /* color: #50555a; */
+  /* color:#ffffff; */
+/*  color: white;
+*/  /*padding: 100px 20px;*/
+}
+
+nav {
+  z-index: 9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.bg-color {
+  background-color: #46a1de;
+  transition-duration: .5s;
+}
+
+.text-color {
+  color: #46a1de;
+  transition-duration: .5s;
+}
+/*
+footer {
+  padding: 40px 0;
+  text-align: center;
+  opacity: .33;
+  color: white;
+}
+*/
+.wrapper {
+/*  min-width: 600px;
+  max-width: 900px;*/
+  width:100px;
+  margin-bottom: 50px;
+  height: 70px;
+  /*margin: 0 auto;*/
+}
+
+.tabs {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+}
+.tabs > li {
+  transition-duration: .25s;
+  display: table-cell;
+  list-style: none;
+  text-align: center;
+  padding: 20px 20px 25px 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  color: white;
+}
+.tabs > li:before {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 120%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  transition-duration: .25s;
+  border-radius: 5px 5px 0 0;
+}
+.tabs > li:hover:before {
+  -webkit-transform: translateY(70%);
+  transform: translateY(70%);
+}
+.tabs > li.active {
+  color: #50555a;
+}
+.tabs > li.active:before {
+  transition-duration: .5s;
+  background-color: white;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.tab__content {
+  background-color: white;
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+}
+.tab__content > li {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  list-style: none;
+}
+.tab__content > li .content__wrapper {
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+  padding: 45px 40px 40px 40px;
+  background-color: white;
+}
+
+.content__wrapper h2 {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 20px;
+  font-weight: 300;
+}
+.content__wrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+html{
+  background-color: #46a1de;
+}
+
+body{
+  background-color: #46a1de;
+}
+
+
+</style>
+
+
+</html>
